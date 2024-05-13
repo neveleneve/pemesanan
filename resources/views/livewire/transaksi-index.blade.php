@@ -1,11 +1,13 @@
 <div>
     <div class="row mb-3">
         <div class="col-lg-6 mb-lg-0 mb-3">
-            @can('menu create')
-                <a href="{{ route('menu.create') }}" wire:navigate class="btn btn-sm btn-outline-success fw-bold">
-                    <i class="fa-solid fa-circle-plus"></i>
-                    Tambah
-                </a>
+            @can('transaksi create')
+                @if (Route::has('transaksi.create'))
+                    <a href="{{ route('transaksi.create') }}" wire:navigate class="btn btn-sm btn-outline-success fw-bold">
+                        <i class="fa-solid fa-circle-plus"></i>
+                        Tambah
+                    </a>
+                @endif
             @endcan
             <button wire:click='$refresh' class="btn btn-sm btn-outline-warning fw-bold">
                 <i class="fa-solid fa-spinner-third fa-spin" wire:loading></i>
@@ -31,30 +33,25 @@
                 <table class="table table-hover text-nowrap">
                     <thead class="table-dark">
                         <tr>
-                            <th></th>
+                            <th>Kode</th>
                             <th>Nama</th>
-                            <th>Jenis</th>
-                            <th>Harga</th>
-                            @canany(['menu show', 'menu edit', 'menu delete'])
+                            <th>Meja</th>
+                            <th>Total</th>
+                            <th>Tanggal</th>
+                            @canany(['transaksi show', 'transaksi edit', 'transaksi delete'])
                                 <th></th>
                             @endcanany
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($menu as $item)
-                            <tr class="{{ $item->deleted_at ? 'table-danger' : null }}"
-                                title="{{ $item->deleted_at ? 'Data sudah dihapus' : null }}">
-                                <td class="text-center">
-                                    @if ($item->status)
-                                        <i class="fa-solid fa-circle-check text-success" title="Tersedia"></i>
-                                    @else
-                                        <i class="fa-solid fa-circle-x text-danger" title="Tidak tersedia"></i>
-                                    @endif
-                                </td>
+                        @forelse ($transaksi as $item)
+                            <tr>
+                                <td>{{ $item->kode }}</td>
                                 <td>{{ $item->nama }}</td>
-                                <td>{{ ucwords($item->tipe) }}</td>
-                                <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
-                                @canany(['menu show', 'menu edit', 'menu delete'])
+                                <td>{{ $item->meja->nama }}</td>
+                                <td>Rp {{ number_format($item->total, 0, ',', '.') }}</td>
+                                <td>{{ date('d F Y. H:i:s', strtotime($item->created_at)) }}</td>
+                                @canany(['transaksi show', 'transaksi edit', 'transaksi delete'])
                                     <td>
                                         <div class="dropdown">
                                             <button class="btn btn-sm btn-outline-primary fw-bold dropdown-toggle"
@@ -62,18 +59,15 @@
                                                 Aksi
                                             </button>
                                             <ul class="dropdown-menu">
-                                                @can('menu show')
-                                                    @if (!$item->deleted_at)
-                                                        <li>
-                                                            <a class="dropdown-item fw-bold" wire:navigate
-                                                                href="{{ route('menu.show', ['menu' => $item->id]) }}">
-                                                                Lihat
-                                                            </a>
-                                                        </li>
-                                                    @endif
+                                                @can('transaksi show')
+                                                    <li>
+                                                        <button class="dropdown-item fw-bold">
+                                                            Lihat Detail Transaksi
+                                                        </button>
+                                                    </li>
                                                 @endcan
-                                                @can('menu edit')
-                                                    @if (!$item->deleted_at)
+                                                @can('transaksi edit')
+                                                    @if (Route::has('transaksi.destroy'))
                                                         <li>
                                                             <a class="dropdown-item fw-bold" wire:navigate
                                                                 href="{{ route('menu.edit', ['menu' => $item->id]) }}">
@@ -82,17 +76,8 @@
                                                         </li>
                                                     @endif
                                                 @endcan
-                                                @can('menu delete')
-                                                    @if ($item->deleted_at)
-                                                        <input type="hidden" id="_token{{ $item->id }}"
-                                                            value="{{ csrf_token() }}">
-                                                        <li>
-                                                            <button class="dropdown-item fw-bold"
-                                                                wire:click='restoreMenu("{{ $item->id }}")'>
-                                                                Kembalikan Data
-                                                            </button>
-                                                        </li>
-                                                    @else
+                                                @can('transaksi delete')
+                                                    @if (Route::has('transaksi.destroy'))
                                                         <li>
                                                             <a class="dropdown-item fw-bold"
                                                                 href="{{ route('menu.destroy', ['menu' => $item->id]) }}"
@@ -119,13 +104,7 @@
     </div>
     <div class="row">
         <div class="col-12">
-            {{ $menu->links('layout.pagination') }}
+            {{ $transaksi->links('layout.pagination') }}
         </div>
     </div>
 </div>
-
-@push('script')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4@5">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="{{ asset('assets/livewire/livewire.js') }}"></script>
-@endpush

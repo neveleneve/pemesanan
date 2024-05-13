@@ -2,33 +2,35 @@
 
 namespace App\Livewire;
 
-use App\Models\Menu;
+use App\Models\Transaksi;
 use Illuminate\Pagination\Paginator;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class MenuIndex extends Component
+class TransaksiIndex extends Component
 {
     use WithPagination;
 
     public $search = '';
+
     public $dataPerPage = 10;
     public $currentPage;
 
     public function render()
     {
         if ($this->search == '') {
-            $data = Menu::withTrashed()
-                ->orderBy('deleted_at')
+            $data = Transaksi::with('meja')
+                ->orderBy('created_at', 'desc')
                 ->paginate($this->dataPerPage);
         } else {
-            $data = Menu::withTrashed()
-                ->where('nama', 'LIKE', '%' . $this->search . '%')
-                ->orderBy('deleted_at')
+            $data = Transaksi::with('meja')
+                ->where('kode', 'LIKE', '%' . $this->search . '%')
+                ->orderBy('created_at', 'desc')
+                ->orWhere('nama', 'LIKE', '%' . $this->search . '%')
                 ->paginate($this->dataPerPage);
         }
-        return view('livewire.menu-index', [
-            'menu' => $data
+        return view('livewire.transaksi-index', [
+            'transaksi' => $data
         ]);
     }
 
@@ -38,14 +40,5 @@ class MenuIndex extends Component
         Paginator::currentPageResolver(function () {
             return $this->currentPage;
         });
-    }
-
-    public function restoreMenu($id)
-    {
-        $data = Menu::withTrashed()->find($id);
-        $this->dispatch('restoreMenu', [
-            'id' => $id,
-            'nama' => strtolower($data->nama),
-        ]);
     }
 }

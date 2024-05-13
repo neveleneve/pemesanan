@@ -1,8 +1,8 @@
 <div>
     <div class="row mb-3">
         <div class="col-lg-6 mb-lg-0 mb-3">
-            @can('menu create')
-                <a href="{{ route('menu.create') }}" wire:navigate class="btn btn-sm btn-outline-success fw-bold">
+            @can('meja create')
+                <a href="{{ route('meja.create') }}" wire:navigate class="btn btn-sm btn-outline-success fw-bold">
                     <i class="fa-solid fa-circle-plus"></i>
                     Tambah
                 </a>
@@ -31,30 +31,20 @@
                 <table class="table table-hover text-nowrap">
                     <thead class="table-dark">
                         <tr>
-                            <th></th>
                             <th>Nama</th>
-                            <th>Jenis</th>
-                            <th>Harga</th>
-                            @canany(['menu show', 'menu edit', 'menu delete'])
+                            <th>Token</th>
+                            @canany(['meja show', 'meja edit', 'meja delete'])
                                 <th></th>
                             @endcanany
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($menu as $item)
+                        @forelse ($meja as $item)
                             <tr class="{{ $item->deleted_at ? 'table-danger' : null }}"
                                 title="{{ $item->deleted_at ? 'Data sudah dihapus' : null }}">
-                                <td class="text-center">
-                                    @if ($item->status)
-                                        <i class="fa-solid fa-circle-check text-success" title="Tersedia"></i>
-                                    @else
-                                        <i class="fa-solid fa-circle-x text-danger" title="Tidak tersedia"></i>
-                                    @endif
-                                </td>
                                 <td>{{ $item->nama }}</td>
-                                <td>{{ ucwords($item->tipe) }}</td>
-                                <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
-                                @canany(['menu show', 'menu edit', 'menu delete'])
+                                <td>{{ $item->token }}</td>
+                                @canany(['meja show', 'meja edit', 'meja delete'])
                                     <td>
                                         <div class="dropdown">
                                             <button class="btn btn-sm btn-outline-primary fw-bold dropdown-toggle"
@@ -62,40 +52,38 @@
                                                 Aksi
                                             </button>
                                             <ul class="dropdown-menu">
-                                                @can('menu show')
+                                                @can('meja show')
                                                     @if (!$item->deleted_at)
                                                         <li>
                                                             <a class="dropdown-item fw-bold" wire:navigate
-                                                                href="{{ route('menu.show', ['menu' => $item->id]) }}">
+                                                                href="{{ route('meja.show', ['meja' => $item->id]) }}">
                                                                 Lihat
                                                             </a>
                                                         </li>
                                                     @endif
                                                 @endcan
-                                                @can('menu edit')
+                                                @can('meja edit')
                                                     @if (!$item->deleted_at)
                                                         <li>
                                                             <a class="dropdown-item fw-bold" wire:navigate
-                                                                href="{{ route('menu.edit', ['menu' => $item->id]) }}">
+                                                                href="{{ route('meja.edit', ['meja' => $item->id]) }}">
                                                                 Edit
                                                             </a>
                                                         </li>
                                                     @endif
                                                 @endcan
-                                                @can('menu delete')
+                                                @can('meja delete')
                                                     @if ($item->deleted_at)
-                                                        <input type="hidden" id="_token{{ $item->id }}"
-                                                            value="{{ csrf_token() }}">
                                                         <li>
                                                             <button class="dropdown-item fw-bold"
-                                                                wire:click='restoreMenu("{{ $item->id }}")'>
+                                                                wire:click='restoreMeja("{{ $item->id }}")'>
                                                                 Kembalikan Data
                                                             </button>
                                                         </li>
                                                     @else
                                                         <li>
                                                             <a class="dropdown-item fw-bold"
-                                                                href="{{ route('menu.destroy', ['menu' => $item->id]) }}"
+                                                                href="{{ route('meja.destroy', ['meja' => $item->id]) }}"
                                                                 data-confirm-delete="true">Hapus</a>
                                                         </li>
                                                     @endif
@@ -119,7 +107,7 @@
     </div>
     <div class="row">
         <div class="col-12">
-            {{ $menu->links('layout.pagination') }}
+            {{ $meja->links('layout.pagination') }}
         </div>
     </div>
 </div>

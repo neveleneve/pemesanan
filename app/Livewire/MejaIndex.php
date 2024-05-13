@@ -2,33 +2,34 @@
 
 namespace App\Livewire;
 
-use App\Models\Menu;
+use App\Models\Meja;
 use Illuminate\Pagination\Paginator;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class MenuIndex extends Component
+class MejaIndex extends Component
 {
     use WithPagination;
 
     public $search = '';
+
     public $dataPerPage = 10;
     public $currentPage;
 
     public function render()
     {
         if ($this->search == '') {
-            $data = Menu::withTrashed()
+            $data = Meja::withTrashed()
                 ->orderBy('deleted_at')
                 ->paginate($this->dataPerPage);
         } else {
-            $data = Menu::withTrashed()
+            $data = Meja::withTrashed()
                 ->where('nama', 'LIKE', '%' . $this->search . '%')
                 ->orderBy('deleted_at')
                 ->paginate($this->dataPerPage);
         }
-        return view('livewire.menu-index', [
-            'menu' => $data
+        return view('livewire.meja-index', [
+            'meja' => $data
         ]);
     }
 
@@ -40,10 +41,10 @@ class MenuIndex extends Component
         });
     }
 
-    public function restoreMenu($id)
+    public function restoreMeja($id)
     {
-        $data = Menu::withTrashed()->find($id);
-        $this->dispatch('restoreMenu', [
+        $data = Meja::withTrashed()->find($id);
+        $this->dispatch('restoreMeja', [
             'id' => $id,
             'nama' => strtolower($data->nama),
         ]);

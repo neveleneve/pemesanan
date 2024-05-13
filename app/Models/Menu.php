@@ -16,4 +16,9 @@ class Menu extends Model
         'tipe',
         'status',
     ];
+
+    public function detail_transaksi()
+    {
+        return $this->hasMany(DetailTransaksi::class);
+    }
 }

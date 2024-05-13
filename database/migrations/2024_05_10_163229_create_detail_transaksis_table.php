@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('detail_transaksis', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('transaksi_id');
+            $table->bigInteger('menu_id');
+            $table->integer('harga');
+            $table->integer('qty');
+            $table->integer('subtotal');
+            $table->boolean('status')->nullable()->default(0);
             $table->timestamps();
         });
     }

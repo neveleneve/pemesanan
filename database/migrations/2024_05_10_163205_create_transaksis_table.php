@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('meja_id');
+            $table->string('nama');
+            $table->string('kode');
+            $table->integer('total');
+            $table->boolean('status')->nullable()->default(0);
             $table->timestamps();
         });
     }

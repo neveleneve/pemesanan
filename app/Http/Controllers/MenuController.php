@@ -9,6 +9,15 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class MenuController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:menu index')->only('index');
+        $this->middleware('permission:menu create')->only('create', 'store');
+        $this->middleware('permission:menu show')->only('show');
+        $this->middleware('permission:menu edit')->only('edit', 'update');
+        $this->middleware('permission:menu delete')->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -135,20 +144,21 @@ class MenuController extends Controller
             ]);
             Alert::success('Berhasil', 'Berhasil menghapus data menu.');
         } else {
-            Alert::success('Gagal', 'Gagal menghapus data menu.');
+            Alert::warning('Gagal', 'Gagal menghapus data menu.');
         }
         return redirect(route('menu.index'));
     }
 
     public function restore($menu)
     {
+        // dd($menu);
         $menus = Menu::withTrashed()
             ->find($menu)
             ->restore();
         if ($menus) {
             Alert::success('Berhasil', 'Berhasil mengembalikan data menu.');
         } else {
-            Alert::success('Gagal', 'Gagal mengembalikan data menu.');
+            Alert::warning('Gagal', 'Gagal mengembalikan data menu.');
         }
         return redirect(route('menu.index'));
     }

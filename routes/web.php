@@ -14,12 +14,16 @@ Auth::routes([
     'register' => false
 ]);
 
-Route::get('dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+Route::get('dashboard', [App\Http\Controllers\HomeController::class, 'index'])
+    ->name('dashboard');
 
-Route::delete('meja/restore/{meja}', [MejaController::class, 'restore'])->name('meja.restore');
+Route::delete('meja/restore/{meja}', [MejaController::class, 'restore'])
+    ->name('meja.restore');
 Route::resource('meja', MejaController::class);
 
-Route::delete('menu/restore/{menu}', [MenuController::class, 'restore'])->name('menu.restore');
+Route::delete('menu/restore/{menu}', [MenuController::class, 'restore'])
+    ->name('menu.restore');
 Route::resource('menu', MenuController::class);
 
-Route::resource('transaksi', TransaksiController::class);
+Route::resource('transaksi', TransaksiController::class)
+    ->except('create', 'edit', 'destroy');
