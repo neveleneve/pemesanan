@@ -34,12 +34,12 @@
                     <ul class="navbar-nav ms-auto">
                         @guest
                             @if (Route::has('login'))
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a class="nav-link {{ Request::is('login') ? 'active fw-bold' : null }}"
                                         href="{{ route('login') }}">
                                         Login
                                     </a>
-                                </li>
+                                </li> --}}
                             @endif
                             @if (Route::has('register'))
                                 <li class="nav-item">

@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\DetailTransaksi;
 use App\Models\Transaksi;
 use Illuminate\Pagination\Paginator;
 use Livewire\Component;
@@ -15,6 +16,9 @@ class TransaksiIndex extends Component
 
     public $dataPerPage = 10;
     public $currentPage;
+
+    public $selectedTrx = [];
+    public $details = [];
 
     public function render()
     {
@@ -40,5 +44,11 @@ class TransaksiIndex extends Component
         Paginator::currentPageResolver(function () {
             return $this->currentPage;
         });
+    }
+
+    public function transaksiDetail($id)
+    {
+        $this->details = DetailTransaksi::where('transaksi_id', $id)->get();
+        $this->selectedTrx = Transaksi::find($id);
     }
 }

@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\DetailTransaksi;
 use App\Models\Meja;
+use App\Models\Menu;
 use App\Models\Transaksi;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,22 +17,43 @@ class TransaksiSeeder extends Seeder
      */
     public function run(): void
     {
-        $meja = Meja::count();
+        $faker = \Faker\Factory::create();
 
         $gender = ['male', 'female'];
 
-        $faker = \Faker\Factory::create();
+        $menu = Menu::get(['id', 'harga']);
+        $jmlMenu = count($menu);
+
+        $meja = Meja::count();
 
         for ($i = 0; $i < 20; $i++) {
             $pickmeja = rand(1, $meja);
-            Transaksi::create([
+            $transaksi = Transaksi::create([
                 'meja_id' => $pickmeja,
                 'nama' => $faker->name($gender[rand(0, 1)]),
                 'kode' => Random::generate(10, '0-9a-zA-Z'),
-                'total' => rand(100000, 1000000),
-                'status' => 0,
+                'total' => 0,
                 'created_at' => date('Y-m-d H:i:s', strtotime('-' . $i + 10 . 'minutes')),
             ]);
+
+            for ($j = 0; $j < rand(2, 4); $j++) {
+                $randMenu = rand(0, $jmlMenu - 1);
+                $menudata = [
+                    'id' => $menu[$randMenu]->id,
+                    'harga' => $menu[$randMenu]->harga,
+                ];
+                $qty = rand(1, 3);
+                $subtotal = $qty * $menudata['harga'];
+                DetailTransaksi::create([
+                    'transaksi_id' => $transaksi->id,
+                    'menu_id' => $menudata['id'],
+                    'harga' => $menudata['harga'],
+                    'qty' => $qty,
+                    'subtotal' => $subtotal,
+                    'status' => 0,
+                ]);
+                $transaksi->increment('total', $subtotal);
+            }
         }
     }
 }

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('kode');
             $table->integer('total');
             $table->boolean('status')->nullable()->default(0);
+            $table->boolean('status_bayar')->nullable()->default(0);
+            $table->enum('jenis_pembayaran', ['cash', 'online'])->nullable()->default('cash');
             $table->timestamps();
         });
     }

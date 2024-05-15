@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MejaController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PemesananController;
 use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -27,3 +28,9 @@ Route::resource('menu', MenuController::class);
 
 Route::resource('transaksi', TransaksiController::class)
     ->except('create', 'edit', 'destroy');
+
+Route::group(['prefix' => 'pesan'], function () {
+    Route::post('/', [PemesananController::class, 'pemesanan'])->name('pesan');
+    Route::get('{kode}', [PemesananController::class, 'hasilpesan'])->name('pesan.lihat');
+    Route::get('{meja}/{token}', [PemesananController::class, 'pesan'])->name('pesan.check');
+});

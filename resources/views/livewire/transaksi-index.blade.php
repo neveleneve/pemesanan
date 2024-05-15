@@ -20,14 +20,14 @@
         </div>
     </div>
     @include('layout.data-per-page')
-    <div class="row" wire:loading wire:loading.class='d-block'>
+    <div class="row" wire:loading wire:loading.class='d-block' wire:target.except="transaksiDetail">
         <div class="col-12">
             <h1 class="text-center">
                 <i class="fas fa-spinner-third fa-spin"></i>
             </h1>
         </div>
     </div>
-    <div class="row" wire:loading.remove>
+    <div class="row" wire:loading.remove wire:target.except="transaksiDetail">
         <div class="col-12">
             <div class="table-responsive">
                 <table class="table table-hover text-nowrap">
@@ -61,7 +61,9 @@
                                             <ul class="dropdown-menu">
                                                 @can('transaksi show')
                                                     <li>
-                                                        <button class="dropdown-item fw-bold">
+                                                        <button class="dropdown-item fw-bold" data-bs-toggle="modal"
+                                                            data-bs-target="#modalView"
+                                                            wire:click='transaksiDetail({{ $item->id }})'>
                                                             Lihat Detail Transaksi
                                                         </button>
                                                     </li>
@@ -92,7 +94,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3">
+                                <td colspan="7">
                                     <h3 class="text-center fw-bold">Data Kosong</h3>
                                 </td>
                             </tr>
@@ -105,6 +107,86 @@
     <div class="row">
         <div class="col-12">
             {{ $transaksi->links('layout.pagination') }}
+        </div>
+    </div>
+    <div class="modal fade" id="modalView" wire:ignore.self>
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 fw-bold">Detail Transaksi</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-3 text-center">
+                        <div class="col-12 mb-1">
+                            <label for="kode" class="fw-bold">Kode Transaksi</label>
+                            <input type="text" id="kode" readonly
+                                value="{{ isset($selectedTrx->kode) ? $selectedTrx->kode : '' }}"
+                                class="form-control form-control-sm form-control-plaintext text-center">
+                        </div>
+                        <div class="col-12 mb-1">
+                            <label for="nama" class="fw-bold">Nama Customer</label>
+                            <input type="text" id="nama" readonly
+                                value="{{ isset($selectedTrx->nama) ? $selectedTrx->nama : '' }}"
+                                class="form-control form-control-sm form-control-plaintext text-center">
+                        </div>
+                        <div class="col-12 mb-1">
+                            <label for="meja" class="fw-bold">Meja</label>
+                            <input type="text" id="meja" readonly
+                                value="{{ isset($selectedTrx->meja->nama) ? $selectedTrx->meja->nama : '' }}"
+                                class="form-control form-control-sm form-control-plaintext text-center">
+                        </div>
+                        <div class="col-12 mb-1">
+                            <label for="total" class="fw-bold">Total</label>
+                            <input type="text" id="total" readonly
+                                value="Rp {{ isset($selectedTrx->total) ? number_format($selectedTrx->total, 0, ',', '.') : '' }}"
+                                class="form-control form-control-sm form-control-plaintext text-center">
+                        </div>
+                    </div>
+                    <table class="table table-hover table-bordered text-center">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Nama</th>
+                                <th>Qty</th>
+                                <th class="text-end">Harga</th>
+                                <th class="text-end">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($details as $detail)
+                                <tr>
+                                    <td>{{ $detail->menu->nama }}</td>
+                                    <td>{{ $detail->qty }}</td>
+                                    <td class="text-end">Rp {{ number_format($detail->harga, 0, ',', '.') }}</td>
+                                    <td class="text-end">Rp {{ number_format($detail->subtotal, 0, ',', '.') }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td>
+                                        <h3 class="text-center fw-bold">Data Kosong</h3>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3">
+                                    <h3 class="text-end fw-bold h6">Total</h3>
+                                </td>
+                                <td colspan="3" class="text-end">
+                                    Rp
+                                    {{ isset($selectedTrx->total) ? number_format($selectedTrx->total, 0, ',', '.') : '' }}
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    {{-- {{ $selectedTrx }} --}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-danger fw-bold"
+                        data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
