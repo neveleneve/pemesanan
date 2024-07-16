@@ -17,7 +17,7 @@
                 wire:model.live='search'>
         </div>
     </div>
-    @include('layout.data-per-page')
+    @include('layouts.data-per-page')
     <div class="row" wire:loading wire:loading.class='d-block'>
         <div class="col-12">
             <h1 class="text-center">
@@ -27,7 +27,7 @@
     </div>
     <div class="row" wire:loading.remove>
         <div class="col-12">
-            <div class="table-responsive">
+            <div class="table-responsive-lg">
                 <table class="table table-hover text-nowrap">
                     <thead class="table-dark">
                         <tr>
@@ -52,6 +52,12 @@
                                                 Aksi
                                             </button>
                                             <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="{{ route('meja.qr', ['meja' => $item->id]) }}"
+                                                        class="dropdown-item fw-bold" wire:navigate>
+                                                        Download QR Code
+                                                    </a>
+                                                </li>
                                                 @can('meja show')
                                                     @if (!$item->deleted_at)
                                                         <li>
@@ -95,7 +101,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3">
+                                <td colspan="5">
                                     <h3 class="text-center fw-bold">Data Kosong</h3>
                                 </td>
                             </tr>
@@ -107,7 +113,7 @@
     </div>
     <div class="row">
         <div class="col-12">
-            {{ $meja->links('layout.pagination') }}
+            {{ $meja->links('layouts.pagination') }}
         </div>
     </div>
 </div>

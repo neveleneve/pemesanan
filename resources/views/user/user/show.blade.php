@@ -7,10 +7,10 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        @include('layouts.breadcrumb', ['list' => ['Meja', 'Edit']])
+                        @include('layouts.breadcrumb', ['list' => ['Pengguna', 'Lihat']])
                         <div class="row mb-3">
                             <div class="col-lg-6 mb-lg-0 mb-3">
-                                <a href="{{ route('meja.index') }}" wire:navigate
+                                <a href="{{ route('user.index') }}" wire:navigate
                                     class="btn btn-sm btn-outline-danger fw-bold">
                                     <i class="fa-solid fa-circle-chevron-left"></i>
                                     Kembali
@@ -19,19 +19,29 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="nama" class="col-sm-2 col-form-label col-form-label-sm fw-bold">
-                                Nama Menu
+                                Nama
                             </label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control form-control-sm" id="nama"
-                                    value="{{ $data->id }}" placeholder="Nama Menu" readonly>
+                                <input type="text" class="form-control form-control-sm form-control-plaintext"
+                                    id="nama" value="{{ $data->name }}" readonly>
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="token" class="col-sm-2 col-form-label col-form-label-sm fw-bold">
-                                Token
+                            <label for="email" class="col-sm-2 col-form-label col-form-label-sm fw-bold">
+                                Email
                             </label>
                             <div class="col-sm-10">
-                                @livewire('meja-edit', ['meja_id' => $data->id])
+                                <input type="email" class="form-control form-control-sm form-control-plaintext"
+                                    id="email" value="{{ $data->email }}" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="role" class="col-sm-2 col-form-label col-form-label-sm fw-bold">
+                                Role
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="tel" class="form-control form-control-sm form-control-plaintext"
+                                    id="role" value="{{ ucwords($data->roles[0]->name) }}" readonly>
                             </div>
                         </div>
                     </div>

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        @include('layout.navigation')
+        @include('layouts.navigation')
         <div class="row justify-content-center">
             {{--  --}}
         </div>

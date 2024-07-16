@@ -6,6 +6,45 @@ Livewire.on("generateToken", (params) => {
     });
 });
 
+Livewire.on('restoreUser', (params) => {
+    Swal.fire({
+        title: 'Kembalikan Data',
+        text: 'Kembalikan data pengguna ' + params[0].nama + '?',
+        showDenyButton: true,
+        confirmButtonText: 'Ya, Lanjutkan',
+        denyButtonText: 'Batalkan',
+        customClass: {
+            confirmButton: 'btn btn-sm btn-outline-success',
+            denyButton: 'btn btn-sm btn-outline-danger',
+        },
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var form = document.createElement('form')
+            var token = document.createElement('input');
+            var method = document.createElement('input');
+            var tokens = document.getElementsByTagName("META")[2].content
+
+            token.setAttribute('type', 'hidden');
+            token.setAttribute('name', '_token');
+            token.setAttribute('value', tokens)
+
+            method.setAttribute('type', 'hidden');
+            method.setAttribute('name', '_method');
+            method.setAttribute('value', 'DELETE');
+
+            form.appendChild(token);
+            form.appendChild(method);
+
+            form.action = `/user/restore/` + params[0].id
+            form.method = 'POST'
+            document.body.appendChild(form);
+            form.submit();
+        } else if (result.isDenied) {
+            Swal.fire('Kamu batal mengembalikan data pengguna ' + params[0].name, '', 'info')
+        }
+    })
+})
+
 Livewire.on('restoreMenu', (params) => {
     Swal.fire({
         title: 'Kembalikan Data',

@@ -19,7 +19,7 @@
                 wire:model.live='search'>
         </div>
     </div>
-    @include('layout.data-per-page')
+    @include('layouts.data-per-page')
     <div class="row" wire:loading wire:loading.class='d-block' wire:target.except="transaksiDetail">
         <div class="col-12">
             <h1 class="text-center">
@@ -106,7 +106,7 @@
     </div>
     <div class="row">
         <div class="col-12">
-            {{ $transaksi->links('layout.pagination') }}
+            {{ $transaksi->links('layouts.pagination') }}
         </div>
     </div>
     <div class="modal fade" id="modalView" wire:ignore.self>

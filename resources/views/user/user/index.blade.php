@@ -7,8 +7,8 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        @include('layouts.breadcrumb', ['list' => ['Menu']])
-                        @livewire('menu-index')
+                        @include('layouts.breadcrumb', ['list' => ['Pengguna']])
+                        @livewire('user-index')
                     </div>
                 </div>
             </div>

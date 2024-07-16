@@ -2,12 +2,12 @@
 
 @section('content')
     <div class="container">
-        @include('layout.navigation')
+        @include('layouts.navigation')
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        @include('layout.breadcrumb', ['list' => ['Menu', 'Edit']])
+                        @include('layouts.breadcrumb', ['list' => ['Menu', 'Edit']])
                         <div class="row mb-3">
                             <div class="col-lg-6 mb-lg-0 mb-3">
                                 <a href="{{ route('menu.index') }}" wire:navigate

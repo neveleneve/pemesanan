@@ -2,12 +2,12 @@
 
 @section('content')
     <div class="container">
-        @include('layout.navigation')
+        @include('layouts.navigation')
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        @include('layout.breadcrumb', ['list' => ['Meja']])
+                        @include('layouts.breadcrumb', ['list' => ['Meja']])
                         @livewire('meja-index')
                     </div>
                 </div>

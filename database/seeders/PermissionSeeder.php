@@ -17,6 +17,12 @@ class PermissionSeeder extends Seeder
         $permissions = [
             'dashboard index',
 
+            'user index',
+            'user create',
+            'user show',
+            'user edit',
+            'user delete',
+
             'menu index',
             'menu create',
             'menu show',
@@ -34,6 +40,8 @@ class PermissionSeeder extends Seeder
             'transaksi show',
             'transaksi edit',
             'transaksi delete',
+
+            'report index',
         ];
         for ($i = 0; $i < count($permissions); $i++) {
             Permission::create([

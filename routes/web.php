@@ -3,7 +3,9 @@
 use App\Http\Controllers\MejaController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PemesananController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -12,12 +14,20 @@ Route::get('/', function () {
 });
 
 Auth::routes([
-    'register' => false
+    'register' => false,
+    'reset' => false,
 ]);
 
 Route::get('dashboard', [App\Http\Controllers\HomeController::class, 'index'])
     ->name('dashboard');
 
+Route::resource('role', RoleController::class);
+
+Route::delete('user/restore/{meja}', [UserController::class, 'restore'])
+    ->name('user.restore');
+Route::resource('user', UserController::class);
+
+Route::get('meja/qr-code/{meja}', [MejaController::class, 'qrCode'])->name('meja.qr');
 Route::delete('meja/restore/{meja}', [MejaController::class, 'restore'])
     ->name('meja.restore');
 Route::resource('meja', MejaController::class);

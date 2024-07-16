@@ -6,40 +6,27 @@ use App\Models\Meja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
-class MejaController extends Controller
-{
-    public function __construct()
-    {
+class MejaController extends Controller {
+    public function __construct() {
         $this->middleware('permission:meja index')->only('index');
         $this->middleware('permission:meja create')->only('create', 'store');
         $this->middleware('permission:meja show')->only('show');
         $this->middleware('permission:meja edit')->only('edit', 'update');
-        $this->middleware('permission:meja delete')->only('destroy');
+        $this->middleware('permission:meja delete')->only('destroy', 'restore');
     }
 
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
+    public function index() {
         confirmDelete('Hapus Data Meja', 'Konfirmasi hapus data meja ini?');
         return view('user.meja.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
+    public function create() {
         return view('user.meja.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $validasi = Validator::make(
             $request->all(),
             [
@@ -69,39 +56,23 @@ class MejaController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Meja $meja)
-    {
+    public function show(Meja $meja) {
         return view('user.meja.show', [
             'data' => $meja
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Meja $meja)
-    {
+    public function edit(Meja $meja) {
         return view('user.meja.edit', [
             'data' => $meja
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Meja $meja)
-    {
+    public function update(Request $request, Meja $meja) {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Meja $meja)
-    {
+    public function destroy(Meja $meja) {
         $mejas = $meja->delete();
         if ($mejas) {
             Alert::success('Berhasil', 'Berhasil menghapus data '  . $meja->nama . '.');
@@ -111,8 +82,7 @@ class MejaController extends Controller
         return redirect(route('meja.index'));
     }
 
-    public function restore($meja)
-    {
+    public function restore($meja) {
         $mejas = Meja::withTrashed()
             ->find($meja)
             ->restore();
@@ -122,5 +92,22 @@ class MejaController extends Controller
             Alert::success('Gagal', 'Gagal mengembalikan data meja.');
         }
         return redirect(route('meja.index'));
+    }
+
+    public function qrCode(Meja $meja) {
+        $id = $meja->id;
+        $name = $meja->nama;
+        $token = $meja->token;
+        return response()->streamDownload(
+            function () use ($id, $token) {
+                echo QrCode::size(200)
+                    ->format('svg')
+                    ->generate(route('pesan.check', ['meja' => $id, 'token' => $token]));
+            },
+            'QRCode-' . $name . '.svg',
+            [
+                'Content-Type' => 'image/svg',
+            ]
+        );
     }
 }
