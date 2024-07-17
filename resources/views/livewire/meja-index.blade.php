@@ -53,10 +53,14 @@
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li>
-                                                    <a href="{{ route('meja.qr', ['meja' => $item->id]) }}"
+                                                    {{-- <a href="{{ route('meja.qr', ['meja' => $item->id]) }}"
                                                         class="dropdown-item fw-bold" wire:navigate>
                                                         Download QR Code
-                                                    </a>
+                                                    </a> --}}
+                                                    <button class="dropdown-item fw-bold"
+                                                        wire:click='qrCode({{ $item->id }})'>
+                                                        Download QR Code
+                                                    </button>
                                                 </li>
                                                 @can('meja show')
                                                     @if (!$item->deleted_at)
