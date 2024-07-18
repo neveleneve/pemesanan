@@ -148,6 +148,7 @@
                             <tr>
                                 <th>Nama</th>
                                 <th>Qty</th>
+                                <th>Status</th>
                                 <th class="text-end">Harga</th>
                                 <th class="text-end">Subtotal</th>
                             </tr>
@@ -157,12 +158,13 @@
                                 <tr>
                                     <td>{{ $detail->menu->nama }}</td>
                                     <td>{{ $detail->qty }}</td>
+                                    <td>{{ $detail->status ? 'Selesai' : 'Proses' }}</td>
                                     <td class="text-end">Rp {{ number_format($detail->harga, 0, ',', '.') }}</td>
                                     <td class="text-end">Rp {{ number_format($detail->subtotal, 0, ',', '.') }}</td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td>
+                                    <td colspan="6">
                                         <h3 class="text-center fw-bold">Data Kosong</h3>
                                     </td>
                                 </tr>

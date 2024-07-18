@@ -51,6 +51,19 @@ class PermissionSeeder extends Seeder {
 
             'report index',
         ];
+        $dapur = [
+            'dashboard index',
+            'pesanan index',
+            'pesanan edit',
+        ];
+        $kasir = [
+            'dashboard index',
+            'menu index',
+            'meja index',
+            'transaksi index',
+            'transaksi show',
+            'pesanan index',
+        ];
         for ($i = 0; $i < count($permissions); $i++) {
             Permission::create([
                 'name' => $permissions[$i]
@@ -62,7 +75,9 @@ class PermissionSeeder extends Seeder {
             $role = Role::findById($i + 1);
             if ($i == 0) {
                 $role->givePermissionTo(Permission::all());
-            } else {
+            } elseif ($i == 1) {
+                $role->givePermissionTo('dashboard index');
+            } elseif ($i == 1) {
                 $role->givePermissionTo('dashboard index');
             }
         }
