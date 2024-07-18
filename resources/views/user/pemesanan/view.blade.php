@@ -6,8 +6,8 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header text-bg-dark">
-                        <h3 class="text-center fw-bold">Pesanan</h3>
-                        <h2 class="text-center fw-bold h5">Kode {{ $data->kode }}</h2>
+                        <h3 class="text-center fw-bold">Pesanan {{ $data->kode }}</h3>
+                        {{-- <h2 class="text-center fw-bold h5"></h2> --}}
                     </div>
                     <div class="card-body">
                         <div class="mb-3 row">
@@ -64,7 +64,8 @@
                                             <tr>
                                                 <th>Nama</th>
                                                 <th>Harga</th>
-                                                <th>Qty.</th>
+                                                <th>Qty</th>
+                                                <th>Status</th>
                                                 <th class="text-end">Subtotal</th>
                                             </tr>
                                         </thead>
@@ -74,6 +75,7 @@
                                                     <td>{{ $item->menu->nama }}</td>
                                                     <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
                                                     <td>{{ $item->qty }}</td>
+                                                    <td>{{ $item->status ? 'Selesai' : 'Proses' }}</td>
                                                     <td class="text-end">
                                                         Rp {{ number_format($item->harga * $item->qty, 0, ',', '.') }}
                                                     </td>

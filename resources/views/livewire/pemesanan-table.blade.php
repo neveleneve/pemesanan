@@ -31,8 +31,8 @@
                             </tr>
                         @empty
                             <tr>
-                                <td>
-                                    <h3 class="text-center">Data Makanan Kosong</h3>
+                                <td colspan="4">
+                                    <h3 class="text-center fw-bold">Data Makanan Kosong</h3>
                                 </td>
                             </tr>
                         @endforelse
@@ -54,8 +54,8 @@
                             </tr>
                         @empty
                             <tr>
-                                <td>
-                                    <h3 class="text-center">Data Minuman Kosong</h3>
+                                <td colspan="4">
+                                    <h3 class="text-center fw-bold">Data Minuman Kosong</h3>
                                 </td>
                             </tr>
                         @endforelse

@@ -41,6 +41,14 @@
                     </a>
                 </li>
             @endcan
+            @can('pesanan index')
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('pesanan*') ? 'active fw-bold' : 'text-dark' }}"
+                        href="{{ route('pesanan.index') }}" wire:navigate>
+                        Pesanan
+                    </a>
+                </li>
+            @endcan
             @can('report index')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('report*') ? 'active fw-bold' : 'text-dark' }}"

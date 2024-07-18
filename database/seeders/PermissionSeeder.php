@@ -7,13 +7,15 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
-class PermissionSeeder extends Seeder
-{
+class PermissionSeeder extends Seeder {
     /**
      * Run the database seeds.
      */
-    public function run(): void
-    {
+    public function run(): void {
+        if (Permission::count() > 0) {
+            Permission::truncate();
+        }
+
         $permissions = [
             'dashboard index',
 
@@ -40,6 +42,12 @@ class PermissionSeeder extends Seeder
             'transaksi show',
             'transaksi edit',
             'transaksi delete',
+
+            'pesanan index',
+            'pesanan create',
+            'pesanan show',
+            'pesanan edit',
+            'pesanan delete',
 
             'report index',
         ];

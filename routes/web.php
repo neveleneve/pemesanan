@@ -3,6 +3,7 @@
 use App\Http\Controllers\MejaController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PemesananController;
+use App\Http\Controllers\PesananController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
@@ -35,6 +36,9 @@ Route::resource('meja', MejaController::class);
 Route::delete('menu/restore/{menu}', [MenuController::class, 'restore'])
     ->name('menu.restore');
 Route::resource('menu', MenuController::class);
+
+Route::resource('pesanan', PesananController::class)
+    ->except('create', 'edit', 'destroy');
 
 Route::resource('transaksi', TransaksiController::class)
     ->except('create', 'edit', 'destroy');

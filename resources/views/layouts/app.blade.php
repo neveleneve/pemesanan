@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('assets/fontawesome-pro/css/all.min.css') }}">
     @stack('style')
     @livewireStyles
+    @include('sweetalert::alert')
     <script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 </head>
 
@@ -75,7 +76,6 @@
             @yield('content')
         </main>
     </div>
-    @include('sweetalert::alert')
     @livewireScripts
     @stack('script')
 </body>

@@ -32,7 +32,6 @@
                     <thead class="table-dark">
                         <tr>
                             <th>Nama</th>
-                            <th>Token</th>
                             @canany(['meja show', 'meja edit', 'meja delete'])
                                 <th></th>
                             @endcanany
@@ -43,7 +42,6 @@
                             <tr class="{{ $item->deleted_at ? 'table-danger' : null }}"
                                 title="{{ $item->deleted_at ? 'Data sudah dihapus' : null }}">
                                 <td>{{ $item->nama }}</td>
-                                <td>{{ $item->token }}</td>
                                 @canany(['meja show', 'meja edit', 'meja delete'])
                                     <td>
                                         <div class="dropdown">

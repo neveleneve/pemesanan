@@ -31,7 +31,7 @@
                                     <input type="hidden" name="meja_token" value="{{ $data->token }}">
                                 </div>
                             </div>
-                            <div class="mb-3 row">
+                            {{-- <div class="mb-3 row">
                                 <label for="jenis_pembayaran" class="col-sm-2 col-form-label col-form-label-sm fw-bold">
                                     Jenis Pembayaran<span class="text-danger">*</span>
                                 </label>
@@ -42,7 +42,7 @@
                                         <option value="online">Pembayaran Online</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="mb-3 row">
                                 <div class="col-12 gap-2 d-grid">
                                     <button class="btn btn-sm btn-outline-dark fw-bold" type="submit">

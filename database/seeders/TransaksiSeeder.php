@@ -10,30 +10,29 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Nette\Utils\Random;
 
-class TransaksiSeeder extends Seeder
-{
+class TransaksiSeeder extends Seeder {
     /**
      * Run the database seeds.
      */
-    public function run(): void
-    {
+    public function run(): void {
         $faker = \Faker\Factory::create();
 
         $gender = ['male', 'female'];
 
-        $menu = Menu::get(['id', 'harga']);
+        $menu = Menu::where('status', 1)->get(['id', 'harga']);
         $jmlMenu = count($menu);
 
         $meja = Meja::count();
 
         for ($i = 0; $i < 20; $i++) {
             $pickmeja = rand(1, $meja);
+            $date = date('Y-m-d H:i:s', strtotime('-' . $i . 'minutes'));
             $transaksi = Transaksi::create([
                 'meja_id' => $pickmeja,
                 'nama' => $faker->name($gender[rand(0, 1)]),
                 'kode' => Random::generate(10, '0-9a-zA-Z'),
                 'total' => 0,
-                'created_at' => date('Y-m-d H:i:s', strtotime('-' . $i + 10 . 'minutes')),
+                'created_at' => $date,
             ]);
 
             for ($j = 0; $j < rand(2, 4); $j++) {
@@ -51,6 +50,7 @@ class TransaksiSeeder extends Seeder
                     'qty' => $qty,
                     'subtotal' => $subtotal,
                     'status' => 0,
+                    'created_at' => $date,
                 ]);
                 $transaksi->increment('total', $subtotal);
             }
