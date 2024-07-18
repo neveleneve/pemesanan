@@ -27,7 +27,7 @@
                                 <div class="col-sm-10">
                                     <input type="text"
                                         class="form-control form-control-sm @error('nama') is-invalid @enderror"
-                                        id="nama" name="nama" value="{{ $data->name }}" placeholder="Nama Menu">
+                                        id="nama" name="nama" value="{{ $data->name }}" placeholder="Nama">
                                     @error('nama')
                                         <div class="invalid-feedback">
                                             {{ $message }}

@@ -4,14 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Permission\Models\Role;
 
-class UserController extends Controller
-{
-    public function __construct()
-    {
+class UserController extends Controller {
+    public function __construct() {
         $this->middleware('permission:user index')->only('index');
         $this->middleware('permission:user create')->only('create', 'store');
         $this->middleware('permission:user show')->only('show');
@@ -19,31 +18,65 @@ class UserController extends Controller
         $this->middleware('permission:user delete')->only('destroy', 'restore');
     }
 
-    public function index()
-    {
+    public function index() {
         confirmDelete('Hapus Data Pengguna', 'Konfirmasi hapus data pengguna ini?');
         return view('user.user.index');
     }
 
-    public function create()
-    {
-        //
+    public function create() {
+        $role = Role::get();
+        return view('user.user.create', [
+            'role' => $role
+        ]);
     }
 
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        $validasi = Validator::make(
+            $request->all(),
+            [
+                'nama' => ['required', 'min:2', 'regex:/^[\pL\s\-]+$/u'],
+                'email' => ['required', 'email'],
+                'role' => ['required'],
+            ],
+            [
+                'nama.required' => 'Nama harus diisi!',
+                'nama.min' => 'Nama harus diisi minimal 2 karakter!',
+                'nama.regex' => 'Nama harus diisi dengan huruf!',
+                'email.required' => 'Email harus diisi!',
+                'email.email' => 'Email harus diisi dengan format yang benar!',
+                'role.required' => 'Role harus dipilih!',
+            ]
+        );
+
+        if ($validasi->fails()) {
+            Alert::warning('Gagal', 'Gagal menambah data pengguna baru. Silakan ulangi!');
+            return redirect(route("user.create"))
+                ->withErrors($validasi->errors())
+                ->withInput();
+        } else {
+            $user = User::create([
+                'name' => $request->nama,
+                'email' => $request->email,
+                'password' => Hash::make('12345678'),
+            ]);
+            if ($user) {
+                $user->assignRole($request->role);
+                Alert::success('Berhasil', 'Berhasil menambah data pengguna baru.');
+                return redirect(route('user.index'));
+            } else {
+                Alert::warning('Gagal', 'Gagal menambah data pengguna baru. Silakan ulangi!');
+                return redirect(route("user.create"))->withInput();
+            }
+        }
     }
 
-    public function show(User $user)
-    {
+    public function show(User $user) {
         return view('user.user.show', [
             'data' => $user
         ]);
     }
 
-    public function edit(User $user)
-    {
+    public function edit(User $user) {
         $role = Role::get();
         return view('user.user.edit', [
             'data' => $user,
@@ -51,8 +84,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(Request $request, User $user)
-    {
+    public function update(Request $request, User $user) {
         $validasi = Validator::make(
             $request->all(),
             [
@@ -90,8 +122,7 @@ class UserController extends Controller
         }
     }
 
-    public function destroy(User $user)
-    {
+    public function destroy(User $user) {
         $users = $user->delete();
         if ($users) {
             Alert::success('Berhasil', 'Berhasil menghapus data pengguna.');
@@ -101,8 +132,7 @@ class UserController extends Controller
         return redirect(route('user.index'));
     }
 
-    public function restore($user)
-    {
+    public function restore($user) {
         $users = User::withTrashed()
             ->find($user)
             ->restore();
