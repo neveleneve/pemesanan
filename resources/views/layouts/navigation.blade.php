@@ -49,14 +49,14 @@
                     </a>
                 </li>
             @endcan
-            @can('report index')
+            {{-- @can('report index')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('report*') ? 'active fw-bold' : 'text-dark' }}"
                         href="{{ route('transaksi.index') }}">
                         Report
                     </a>
                 </li>
-            @endcan
+            @endcan --}}
         </ul>
         <hr class="m-0">
     </div>

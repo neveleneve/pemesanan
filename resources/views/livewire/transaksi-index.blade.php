@@ -182,7 +182,6 @@
                             </tr>
                         </tfoot>
                     </table>
-                    {{-- {{ $selectedTrx }} --}}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-outline-danger fw-bold"

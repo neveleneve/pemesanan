@@ -76,9 +76,9 @@ class PermissionSeeder extends Seeder {
             if ($i == 0) {
                 $role->givePermissionTo(Permission::all());
             } elseif ($i == 1) {
-                $role->givePermissionTo('dashboard index');
-            } elseif ($i == 1) {
-                $role->givePermissionTo('dashboard index');
+                $role->givePermissionTo($kasir);
+            } elseif ($i == 2) {
+                $role->givePermissionTo($dapur);
             }
         }
     }
