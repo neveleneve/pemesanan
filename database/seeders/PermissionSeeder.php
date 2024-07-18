@@ -51,6 +51,41 @@ class PermissionSeeder extends Seeder {
 
             'report index',
         ];
+
+        $admin = [
+            'dashboard index',
+
+            'user index',
+            'user create',
+            'user show',
+            'user edit',
+            'user delete',
+
+            'menu index',
+            'menu create',
+            'menu show',
+            'menu edit',
+            'menu delete',
+
+            'meja index',
+            'meja create',
+            'meja show',
+            'meja edit',
+            'meja delete',
+
+            'transaksi index',
+            'transaksi create',
+            'transaksi show',
+            'transaksi edit',
+            'transaksi delete',
+
+            'pesanan index',
+            'pesanan create',
+            'pesanan show',
+            'pesanan delete',
+
+            'report index',
+        ];
         $dapur = [
             'dashboard index',
             'pesanan index',
@@ -74,7 +109,7 @@ class PermissionSeeder extends Seeder {
         for ($i = 0; $i < $roletotal; $i++) {
             $role = Role::findById($i + 1);
             if ($i == 0) {
-                $role->givePermissionTo(Permission::all());
+                $role->givePermissionTo($admin);
             } elseif ($i == 1) {
                 $role->givePermissionTo($kasir);
             } elseif ($i == 2) {
