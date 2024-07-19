@@ -50,16 +50,14 @@
                                                 Aksi
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li>
-                                                    {{-- <a href="{{ route('meja.qr', ['meja' => $item->id]) }}"
-                                                        class="dropdown-item fw-bold" wire:navigate>
-                                                        Download QR Code
-                                                    </a> --}}
-                                                    <button class="dropdown-item fw-bold"
-                                                        wire:click='qrCode({{ $item->id }})'>
-                                                        Download QR Code
-                                                    </button>
-                                                </li>
+                                                @if (!$item->deleted_at)
+                                                    <li>
+                                                        <button class="dropdown-item fw-bold"
+                                                            wire:click='qrCode({{ $item->id }})'>
+                                                            Download QR Code
+                                                        </button>
+                                                    </li>
+                                                @endif
                                                 @can('meja show')
                                                     @if (!$item->deleted_at)
                                                         <li>
