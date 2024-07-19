@@ -88,6 +88,8 @@ class PermissionSeeder extends Seeder {
         ];
         $dapur = [
             'dashboard index',
+            'menu index',
+            'menu edit',
             'pesanan index',
             'pesanan edit',
         ];

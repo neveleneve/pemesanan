@@ -12,11 +12,11 @@
     <link rel="stylesheet" href="{{ asset('assets/fontawesome-pro/css/all.min.css') }}">
     @stack('style')
     @livewireStyles
-    @include('sweetalert::alert')
     <script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 </head>
 
 <body>
+    @include('sweetalert::alert')
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">

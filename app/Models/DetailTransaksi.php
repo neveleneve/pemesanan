@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DetailTransaksi extends Model
-{
+class DetailTransaksi extends Model {
     use HasFactory;
 
     protected $fillable = [
@@ -18,13 +17,11 @@ class DetailTransaksi extends Model
         'status',
     ];
 
-    public function transaksi()
-    {
+    public function transaksi() {
         return $this->belongsTo(Transaksi::class);
     }
 
-    public function menu()
-    {
-        return $this->belongsTo(Menu::class);
+    public function menu() {
+        return $this->belongsTo(Menu::class)->withTrashed();
     }
 }

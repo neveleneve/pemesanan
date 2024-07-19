@@ -7,16 +7,14 @@ use Illuminate\Pagination\Paginator;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class MenuIndex extends Component
-{
+class MenuIndex extends Component {
     use WithPagination;
 
     public $search = '';
     public $dataPerPage = 10;
     public $currentPage;
 
-    public function render()
-    {
+    public function render() {
         if ($this->search == '') {
             $data = Menu::withTrashed()
                 ->orderBy('deleted_at')
@@ -32,16 +30,14 @@ class MenuIndex extends Component
         ]);
     }
 
-    public function setPage($url)
-    {
+    public function setPage($url) {
         $this->currentPage = explode('page=', $url)[1];
         Paginator::currentPageResolver(function () {
             return $this->currentPage;
         });
     }
 
-    public function restoreMenu($id)
-    {
+    public function restoreMenu($id) {
         $data = Menu::withTrashed()->find($id);
         $this->dispatch('restoreMenu', [
             'id' => $id,

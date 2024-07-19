@@ -18,13 +18,9 @@ class MejaIndex extends Component {
 
     public function render() {
         if ($this->search == '') {
-            $data = Meja::withTrashed()
-                ->orderBy('deleted_at')
-                ->paginate($this->dataPerPage);
+            $data = Meja::paginate($this->dataPerPage);
         } else {
-            $data = Meja::withTrashed()
-                ->where('nama', 'LIKE', '%' . $this->search . '%')
-                ->orderBy('deleted_at')
+            $data = Meja::where('nama', 'LIKE', '%' . $this->search . '%')
                 ->paginate($this->dataPerPage);
         }
         return view('livewire.meja-index', [

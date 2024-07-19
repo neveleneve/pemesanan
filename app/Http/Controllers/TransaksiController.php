@@ -38,7 +38,7 @@ class TransaksiController extends Controller {
     public function store(Request $request) {
         // dd($request->all());
         $validation = Validator::make($request->all(), [
-            'nama' => ['required', 'string', 'min:5'],
+            'nama' => ['required', 'string'],
             'meja_id' => ['required', 'numeric'],
             'meja_token' => ['required', 'string', 'min:32'],
         ]);

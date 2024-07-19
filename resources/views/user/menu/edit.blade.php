@@ -27,7 +27,8 @@
                                 <div class="col-sm-10">
                                     <input type="text"
                                         class="form-control form-control-sm @error('nama') is-invalid @enderror"
-                                        id="nama" name="nama" value="{{ $data->nama }}" placeholder="Nama Menu">
+                                        id="nama" name="nama" value="{{ $data->nama }}" placeholder="Nama Menu"
+                                        @role('dapur') readonly @endrole>
                                     @error('nama')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -41,7 +42,7 @@
                                 </label>
                                 <div class="col-sm-10">
                                     <select class="form-select form-select-sm @error('tipe') is-invalid @enderror"
-                                        name="tipe" id="tipe">
+                                        name="tipe" id="tipe" @role('dapur') disabled @endrole>
                                         <option value="" hidden>Pilih Tipe Menu</option>
                                         <option value="makanan" {{ $data->tipe == 'makanan' ? 'selected' : null }}>
                                             Makanan
@@ -64,7 +65,8 @@
                                 <div class="col-sm-10">
                                     <input type="number" step="1000"
                                         class="form-control form-control-sm @error('harga') is-invalid @enderror"
-                                        id="harga" name="harga" value="{{ $data->harga }}" placeholder="Harga">
+                                        id="harga" name="harga" value="{{ $data->harga }}" placeholder="Harga"
+                                        @role('dapur') readonly @endrole>
                                     @error('harga')
                                         <div class="invalid-feedback">
                                             {{ $message }}
