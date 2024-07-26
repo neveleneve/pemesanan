@@ -69,7 +69,25 @@ class MejaController extends Controller {
     }
 
     public function update(Request $request, Meja $meja) {
-        //
+        $validation = Validator::make($request->all(), [
+            'nama' => ['required']
+        ]);
+
+        if ($validation->fails()) {
+            Alert::warning('Gagal', 'Gagal memperbarui data meja! Silakan ulangi.');
+            return redirect(route('meja.edit', ['meja' => $meja->id]));
+        } else {
+            $update = $meja->update([
+                'nama' => $request->nama
+            ]);
+            if ($update) {
+                Alert::success('Berhasil', 'Berhasil memperbarui data meja!');
+                return redirect(route('meja.index'));
+            } else {
+                Alert::warning('Gagal', 'Gagal memperbarui data meja! Silakan ulangi.');
+                return redirect(route('meja.edit', ['meja' => $meja->id]));
+            }
+        }
     }
 
     public function destroy(Meja $meja) {

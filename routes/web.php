@@ -4,6 +4,7 @@ use App\Http\Controllers\MejaController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PemesananController;
 use App\Http\Controllers\PesananController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
@@ -42,6 +43,12 @@ Route::resource('pesanan', PesananController::class)
 
 Route::resource('transaksi', TransaksiController::class)
     ->except('create', 'edit', 'destroy');
+
+Route::group(['prefix' => 'report'], function () {
+    Route::get('/', [ReportController::class, 'index'])->name('report.index');
+    Route::get('/bulanan', [ReportController::class, 'bulan'])->name('report.bulan');
+    Route::get('/tahunan', [ReportController::class, 'tahun'])->name('report.tahun');
+});
 
 Route::group(['prefix' => 'pesan'], function () {
     Route::post('/', [PemesananController::class, 'pemesanan'])->name('pesan');

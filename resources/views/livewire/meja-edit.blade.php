@@ -3,7 +3,7 @@
         <i class="fa-solid fa-arrows-rotate" wire:loading.remove></i>
         <i class="fa-solid fa-arrows-rotate fa-spin" wire:loading></i>
     </button>
-    <input type="text" class="form-control form-control-sm" id="token" name="token" placeholder="Token" readonly
+    <input type="text" class="form-control form-control-sm" id="token" placeholder="Token" readonly
         wire:loading.attr='disabled' wire:target='refreshed' wire:model.live='meja.token'>
 </div>
 

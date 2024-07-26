@@ -1,12 +1,6 @@
 <div>
     <div class="row mb-3">
         <div class="col-lg-6 mb-lg-0 mb-3">
-            @can('meja create')
-                <a href="{{ route('meja.create') }}" wire:navigate class="btn btn-sm btn-outline-success fw-bold">
-                    <i class="fa-solid fa-circle-plus"></i>
-                    Tambah
-                </a>
-            @endcan
             <button wire:click='$refresh' class="btn btn-sm btn-outline-warning fw-bold">
                 <i class="fa-solid fa-spinner-third fa-spin" wire:loading></i>
                 Refresh
@@ -28,14 +22,14 @@
         <div class="col-12">
             <ul class="nav nav-underline nav-justified" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link fw-bold text-dark active" id="home-tab" data-bs-toggle="tab"
+                    <button class="nav-link fw-bold active" id="home-tab" data-bs-toggle="tab"
                         data-bs-target="#home-tab-pane" type="button" role="tab">
                         Makanan
                         <span class="badge text-bg-primary">{{ count($makanan) }}</span>
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link fw-bold text-dark" id="profile-tab" data-bs-toggle="tab"
+                    <button class="nav-link fw-bold" id="profile-tab" data-bs-toggle="tab"
                         data-bs-target="#profile-tab-pane" type="button" role="tab">
                         Minuman
                         <span class="badge text-bg-primary">{{ count($minuman) }}</span>
@@ -51,13 +45,15 @@
                     <h3 class="text-center fw-bold">Daftar Makanan</h3>
                 </div>
                 <div class="col-12 h-50">
-                    <div class="table-wrapper">
-                        <table class="table table-bordered text-center">
+                    <div class="table-wrapper table-responsive">
+                        <table class="table table-bordered text-center text-nowrap">
                             <thead class="table-dark">
                                 <tr>
-                                    <th>Nama</th>
+                                    <th>No. Pesanan</th>
+                                    <th>Nama Cust.</th>
+                                    <th>Nama Menu</th>
                                     <th>Meja</th>
-                                    <th>Qty</th>
+                                    <th>Qty.</th>
                                     @can('pesanan edit')
                                         <th>Aksi</th>
                                     @endcan
@@ -66,6 +62,8 @@
                             <tbody>
                                 @forelse ($makanan as $mkn)
                                     <tr>
+                                        <td>{{ $mkn->transaksi->kode }}</td>
+                                        <td>{{ $mkn->transaksi->nama }}</td>
                                         <td>{{ $mkn->menu->nama }}</td>
                                         <td>{{ $mkn->transaksi->meja->nama }}</td>
                                         <td>{{ $mkn->qty }}</td>
@@ -99,10 +97,12 @@
                     <h3 class="text-center fw-bold">Daftar Minuman</h3>
                 </div>
                 <div class="col-12">
-                    <div class="table-wrapper">
-                        <table class="table table-bordered text-center">
+                    <div class="table-wrapper table-responsive">
+                        <table class="table table-bordered text-center text-nowrap">
                             <thead class="table-dark">
                                 <tr>
+                                    <th>No. Pesanan</th>
+                                    <th>Nama Cust.</th>
                                     <th>Nama</th>
                                     <th>Meja</th>
                                     <th>Qty</th>
@@ -114,6 +114,8 @@
                             <tbody>
                                 @forelse ($minuman as $mnm)
                                     <tr>
+                                        <td>{{ $mnm->transaksi->kode }}</td>
+                                        <td>{{ $mnm->transaksi->nama }}</td>
                                         <td>{{ $mnm->menu->nama }}</td>
                                         <td>{{ $mnm->transaksi->meja->nama }}</td>
                                         <td>{{ $mnm->qty }}</td>

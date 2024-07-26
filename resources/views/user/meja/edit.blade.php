@@ -17,23 +17,34 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="mb-3 row">
-                            <label for="nama" class="col-sm-2 col-form-label col-form-label-sm fw-bold">
-                                Nama Menu
-                            </label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control form-control-sm" id="nama"
-                                    value="{{ $data->id }}" placeholder="Nama Menu" readonly>
+                        <form action="{{ route('meja.update', ['meja' => $data->id]) }}" method="post">
+                            @csrf
+                            @method('put')
+                            <div class="mb-3 row">
+                                <label for="nama" class="col-sm-2 col-form-label col-form-label-sm fw-bold">
+                                    Nama Meja
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control form-control-sm" id="nama" name="nama"
+                                        value="{{ $data->nama }}" placeholder="Nama Menu">
+                                </div>
                             </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="token" class="col-sm-2 col-form-label col-form-label-sm fw-bold">
-                                Token
-                            </label>
-                            <div class="col-sm-10">
-                                @livewire('meja-edit', ['meja_id' => $data->id])
+                            <div class="mb-3 row">
+                                <label for="token" class="col-sm-2 col-form-label col-form-label-sm fw-bold">
+                                    Token
+                                </label>
+                                <div class="col-sm-10">
+                                    @livewire('meja-edit', ['meja_id' => $data->id])
+                                </div>
                             </div>
-                        </div>
+                            <div class="mb-3 row">
+                                <div class="col-12 gap-2 d-grid">
+                                    <button type="submit" class="btn btn-sm btn-outline-primary fw-bold">
+                                        Perbarui
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

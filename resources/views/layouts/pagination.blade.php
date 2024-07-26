@@ -12,7 +12,7 @@
             </div>
             <div class="col-lg-6">
                 <nav>
-                    <ul class="pagination pagination-sm pagination-dark justify-content-lg-end justify-content-center">
+                    <ul class="pagination pagination-sm justify-content-lg-end justify-content-center">
                         @if ($paginator->onFirstPage())
                             <li class="page-item disabled">
                                 <a class="page-link">
@@ -38,8 +38,8 @@
                             @if (is_array($element))
                                 @foreach ($element as $page => $url)
                                     @if ($page == $paginator->currentPage())
-                                        <li class="page-item  active">
-                                            <span class="page-link bg-dark border border-dark fw-bold">
+                                        <li class="page-item active">
+                                            <span class="page-link fw-bold">
                                                 {{ $page }}
                                             </span>
                                         </li>

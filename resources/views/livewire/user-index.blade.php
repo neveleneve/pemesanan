@@ -39,7 +39,7 @@
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->email }}</td>
                                 <td>
-                                    <a href="{{ route('role.edit', ['role' => $item->roles[0]->id]) }}" class="text-dark"
+                                    <a href="{{ route('role.edit', ['role' => $item->roles[0]->id]) }}"
                                         title="Edit role">
                                         {{ ucwords($item->roles[0]->name) }}
                                     </a>
