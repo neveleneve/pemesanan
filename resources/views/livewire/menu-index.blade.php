@@ -32,6 +32,7 @@
                     <thead class="table-dark">
                         <tr>
                             <th></th>
+                            <th></th>
                             <th>Nama</th>
                             <th>Jenis</th>
                             <th>Harga</th>
@@ -49,6 +50,15 @@
                                         <i class="fa-solid fa-circle-check text-success" title="Tersedia"></i>
                                     @else
                                         <i class="fa-solid fa-circle-x text-danger" title="Tidak tersedia"></i>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    @if ($item->images != null)
+                                        <img src="{{ Storage::url('images/menu/' . $item->images) }}"
+                                            class="img-fluid img-thumbnail" width="70">
+                                    @else
+                                        <img src="{{ Storage::url('images/menu/default.png') }}"
+                                            class="img-fluid img-thumbnail" width="70">
                                     @endif
                                 </td>
                                 <td>{{ $item->nama }}</td>
@@ -105,7 +115,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5">
+                                <td colspan="10">
                                     <h3 class="text-center fw-bold">Data Kosong</h3>
                                 </td>
                             </tr>

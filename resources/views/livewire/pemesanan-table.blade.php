@@ -32,10 +32,11 @@
     <div class="mb-3 row">
         <div class="col-12 gap-2 d-grid">
             <button class="btn btn-sm btn-outline-dark fw-bold" data-bs-toggle="modal" data-bs-target="#modalConfirm"
-                {{ $this->grandTotal() > 0 && $this->nama != '' ? null : 'disabled' }}>
+                {{ $this->nama != '' ? null : 'disabled' }}>
+                {{-- {{ $this->grandTotal() > 0 && $this->nama != '' ? null : 'disabled' }}> --}}
                 Pesan
             </button>
-            <div class="modal modal-lg fade" id="modalConfirm" tabindex="-1" data-bs-backdrop="static">
+            <div class="modal modal-xl fade" id="modalConfirm" tabindex="-1" data-bs-backdrop="static">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -59,19 +60,29 @@
                                     value="Rp {{ number_format($this->grandTotal(), 0, ',', '.') }}">
                                 <input type="hidden" name="grandtotal" value="{{ $this->grandTotal() }}">
                                 <hr>
-                                <table class="table table-bordered">
+                                <table class="table table-hover">
                                     <thead class="table-dark">
                                         <tr>
-                                            <td>Nama</td>
-                                            <td>Harga</td>
-                                            <td>Jumlah</td>
-                                            <td>Subtotal</td>
+                                            <th></th>
+                                            <th>Nama</th>
+                                            <th>Harga</th>
+                                            <th>Jumlah</th>
+                                            <th>Subtotal</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($qtyMakan as $makan)
                                             @if ($makan['qty'] != 0)
                                                 <tr>
+                                                    <td class="text-center">
+                                                        @if ($makan['images'] != null)
+                                                            <img src="{{ Storage::url('images/menu/' . $makan['images']) . '?' . rand() }}"
+                                                                class="img-fluid img-thumbnail" width="70">
+                                                        @else
+                                                            <img src="{{ Storage::url('images/menu/default.png') . '?' . rand() }}"
+                                                                class="img-fluid img-thumbnail" width="70">
+                                                        @endif
+                                                    </td>
                                                     <td>
                                                         {{ $this->subTotal($makan['id'], $makan['qty'])['nama'] }}
                                                         <input type="hidden" name="qtyMenu[{{ $makan['id'] }}]"
@@ -92,6 +103,15 @@
                                         @foreach ($qtyMinum as $minum)
                                             @if ($minum['qty'] != 0)
                                                 <tr>
+                                                    <td class="text-center">
+                                                        @if ($minum['images'] != null)
+                                                            <img src="{{ Storage::url('images/menu/' . $minum['images']) . '?' . rand() }}"
+                                                                class="img-fluid img-thumbnail" width="70">
+                                                        @else
+                                                            <img src="{{ Storage::url('images/menu/default.png') . '?' . rand() }}"
+                                                                class="img-fluid img-thumbnail" width="70">
+                                                        @endif
+                                                    </td>
                                                     <td>
                                                         {{ $this->subTotal($minum['id'], $minum['qty'])['nama'] }}
                                                         <input type="hidden" name="qtyMenu[{{ $minum['id'] }}]"
@@ -110,7 +130,7 @@
                                             @endif
                                         @endforeach
                                         <tr class="table-dark">
-                                            <td colspan="3" class="text-end fw-bold">
+                                            <td colspan="4" class="text-end fw-bold">
                                                 Total
                                             </td>
                                             <td>
@@ -141,10 +161,10 @@
             <h3 class="text-center fw-bold">Menu Tersedia</h3>
             <hr>
             <div class="table-responsive">
-                <table class="table table-hover table-bordered text-nowrap">
+                <table class="table table-hover text-nowrap">
                     <thead class="table-dark">
                         <tr>
-                            <th>ID</th>
+                            <th></th>
                             <th>Nama</th>
                             <th>Harga</th>
                             <th>Qty</th>
@@ -160,7 +180,15 @@
                         </tr>
                         @forelse ($makanan as $makan)
                             <tr>
-                                <td>{{ $qtyMakan[$loop->index]['id'] }}</td>
+                                <td class="text-center">
+                                    @if ($makan->images != null)
+                                        <img src="{{ Storage::url('images/menu/' . $makan->images) }}"
+                                            class="img-fluid img-thumbnail" width="70">
+                                    @else
+                                        <img src="{{ Storage::url('images/menu/default.png') }}"
+                                            class="img-fluid img-thumbnail" width="70">
+                                    @endif
+                                </td>
                                 <td>{{ $makan->nama }}</td>
                                 <td>Rp {{ number_format($makan->harga, 0, ',', '.') }}</td>
                                 <td>
@@ -184,7 +212,15 @@
                         </tr>
                         @forelse ($minuman as $minum)
                             <tr>
-                                <td>{{ $qtyMinum[$loop->index]['id'] }}</td>
+                                <td class="text-center">
+                                    @if ($minum->images != null)
+                                        <img src="{{ Storage::url('images/menu/' . $minum->images) }}"
+                                            class="img-fluid img-thumbnail" width="70">
+                                    @else
+                                        <img src="{{ Storage::url('images/menu/default.png') }}"
+                                            class="img-fluid img-thumbnail" width="70">
+                                    @endif
+                                </td>
                                 <td>{{ $minum->nama }}</td>
                                 <td>Rp {{ number_format($minum->harga, 0, ',', '.') }}</td>
                                 <td>

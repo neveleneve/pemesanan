@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ReportController extends Controller {
     public function __construct() {
-        $this->middleware('permission:report index')->only('index');
+        $this->middleware('permission:report index');
     }
 
     public function index() {

@@ -40,12 +40,14 @@ class PemesananTable extends Component {
 
         foreach ($makanan as $makan) {
             $this->qtyMakan[$i]['id'] = $makan->id;
+            $this->qtyMakan[$i]['images'] = $makan->images;
             $this->qtyMakan[$i]['qty'] = 0;
             $i++;
         }
 
         foreach ($minuman as $minum) {
             $this->qtyMinum[$j]['id'] = $minum->id;
+            $this->qtyMinum[$j]['images'] = $minum->images;
             $this->qtyMinum[$j]['qty'] = 0;
             $j++;
         }

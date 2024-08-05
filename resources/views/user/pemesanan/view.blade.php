@@ -75,6 +75,7 @@
                                     <table class="table table-hover text-center">
                                         <thead class="table-dark fw-bold">
                                             <tr>
+                                                <th></th>
                                                 <th>Nama</th>
                                                 <th>Harga</th>
                                                 <th>Qty</th>
@@ -85,6 +86,15 @@
                                         <tbody>
                                             @foreach ($data->detail_transaksi as $item)
                                                 <tr>
+                                                    <td class="text-center">
+                                                        @if ($item->menu->images != null)
+                                                            <img src="{{ Storage::url('images/menu/' . $item->menu->images) }}"
+                                                                class="img-fluid img-thumbnail" width="70">
+                                                        @else
+                                                            <img src="{{ Storage::url('images/menu/default.png') }}"
+                                                                class="img-fluid img-thumbnail" width="70">
+                                                        @endif
+                                                    </td>
                                                     <td>{{ $item->menu->nama }}</td>
                                                     <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
                                                     <td>{{ $item->qty }}</td>
@@ -97,7 +107,7 @@
                                         </tbody>
                                         <tfoot class="table-dark">
                                             <tr>
-                                                <td class="text-end fw-bold" colspan="4">
+                                                <td class="text-end fw-bold" colspan="5">
                                                     Total
                                                 </td>
                                                 <td class="text-end">

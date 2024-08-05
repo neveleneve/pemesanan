@@ -17,11 +17,12 @@
                                 </a>
                             </div>
                         </div>
-                        <form action="{{ route('menu.store') }}" method="post">
+                        <form action="{{ route('menu.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3 row">
-                                <label for="nama" class="col-sm-2 col-form-label col-form-label-sm fw-bold">Nama
-                                    Menu</label>
+                                <label for="nama" class="col-sm-2 col-form-label col-form-label-sm fw-bold">
+                                    Nama Menu<span class="text-danger">*</span>
+                                </label>
                                 <div class="col-sm-10">
                                     <input type="text"
                                         class="form-control form-control-sm @error('nama') is-invalid @enderror"
@@ -34,8 +35,9 @@
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label for="tipe" class="col-sm-2 col-form-label col-form-label-sm fw-bold">Tipe
-                                    Menu</label>
+                                <label for="tipe" class="col-sm-2 col-form-label col-form-label-sm fw-bold">
+                                    Tipe Menu<span class="text-danger">*</span>
+                                </label>
                                 <div class="col-sm-10">
                                     <select class="form-select form-select-sm @error('tipe') is-invalid @enderror"
                                         name="tipe" id="tipe">
@@ -56,13 +58,28 @@
                             </div>
                             <div class="mb-3 row">
                                 <label for="harga" class="col-sm-2 col-form-label col-form-label-sm fw-bold">
-                                    Harga
+                                    Harga<span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-10">
-                                    <input type="number" step="1000"
+                                    <input type="number" step="1000" min="0"
                                         class="form-control form-control-sm @error('harga') is-invalid @enderror"
                                         id="harga" name="harga" value="{{ old('harga') }}" placeholder="Harga">
                                     @error('harga')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="image" class="col-sm-2 col-form-label col-form-label-sm fw-bold">
+                                    Gambar
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="file" name="gambar" id="image" placeholder="Gambar Menu"
+                                        accept=".jpg,.jpeg,.png"
+                                        class="form-control form-control-sm @error('image') is-invalid @enderror">
+                                    @error('image')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
