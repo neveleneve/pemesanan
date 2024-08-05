@@ -47,6 +47,15 @@
                                     readonly value="Rp {{ number_format($data->total, 0, ',', '.') }}">
                             </div>
                         </div>
+                        <div class="mb-3 row">
+                            <label for="tanggal" class="col-12 col-form-label col-form-label-sm fw-bold text-center">
+                                Tanggal Pemesanan
+                            </label>
+                            <div class="col-12">
+                                <input type="text" class="form-control form-control-sm text-center" id="tanggal"
+                                    readonly value="{{ date('d F Y, H:i', strtotime($data->created_at)) }}">
+                            </div>
+                        </div>
                         @if ($data->jenis_pembayaran == 'online' && $data->status_bayar == 0)
                             <div class="mb-3 row">
                                 <div class="col-12 d-grid gap-2">
@@ -58,6 +67,10 @@
                         @endif
                         <div class="row">
                             <div class="col-12">
+                                <b class="text-dark">
+                                    Estimasi Waktu :
+                                </b>
+                                {{ round($detailtrx * 2.5) }} Menit
                                 <div class="table-responsive">
                                     <table class="table table-hover text-center">
                                         <thead class="table-dark fw-bold">
@@ -82,10 +95,10 @@
                                                 </tr>
                                             @endforeach
                                         </tbody>
-                                        <tfoot>
+                                        <tfoot class="table-dark">
                                             <tr>
-                                                <td class="text-end fw-bold" colspan="3">
-                                                    Jumlah
+                                                <td class="text-end fw-bold" colspan="4">
+                                                    Total
                                                 </td>
                                                 <td class="text-end">
                                                     Rp {{ number_format($data->total, 0, ',', '.') }}
@@ -93,6 +106,7 @@
                                             </tr>
                                         </tfoot>
                                     </table>
+
                                 </div>
                             </div>
                         </div>

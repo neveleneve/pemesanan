@@ -10,24 +10,24 @@
     </div>
     <div class="col-12 mb-3 text-center" {{ $jenis != 'harian' ? 'hidden' : null }}>
         <label for="tanggal" class="fw-bold">Tanggal</label>
-        <input type="date" id="tanggal" name="tanggal" class="form-control form-control-sm">
+        <input type="date" id="tanggal" name="tanggal" class="form-control form-control-sm" value="{{ date('Y-m-d') }}">
     </div>
     <div class="col mb-3 text-center" {{ $jenis != 'bulanan' ? 'hidden' : null }}>
         <label for="bulan" class="fw-bold">Bulan</label>
         <select name="bulan" id="bulan" class="form-select form-select-sm">
             <option selected hidden>Pilih Bulan</option>
-            <option value="1">Januari</option>
-            <option value="2">Februari</option>
-            <option value="3">Maret</option>
-            <option value="4">April</option>
-            <option value="5">Mei</option>
-            <option value="6">Juni</option>
-            <option value="7">Juli</option>
-            <option value="8">Agustus</option>
-            <option value="9">September</option>
-            <option value="10">Oktober</option>
-            <option value="11">November</option>
-            <option value="12">Desember</option>
+            <option value="1" {{ 1 == date('n') ? 'selected' : null }}>Januari</option>
+            <option value="2" {{ 2 == date('n') ? 'selected' : null }}>Februari</option>
+            <option value="3" {{ 3 == date('n') ? 'selected' : null }}>Maret</option>
+            <option value="4" {{ 4 == date('n') ? 'selected' : null }}>April</option>
+            <option value="5" {{ 5 == date('n') ? 'selected' : null }}>Mei</option>
+            <option value="6" {{ 6 == date('n') ? 'selected' : null }}>Juni</option>
+            <option value="7" {{ 7 == date('n') ? 'selected' : null }}>Juli</option>
+            <option value="8" {{ 8 == date('n') ? 'selected' : null }}>Agustus</option>
+            <option value="9" {{ 9 == date('n') ? 'selected' : null }}>September</option>
+            <option value="10" {{ 10 == date('n') ? 'selected' : null }}>Oktober</option>
+            <option value="11" {{ 11 == date('n') ? 'selected' : null }}>November</option>
+            <option value="12" {{ 12 == date('n') ? 'selected' : null }}>Desember</option>
         </select>
     </div>
     <div class="col mb-3 text-center" {{ $jenis == 'harian' || $jenis == null ? 'hidden' : null }}>
@@ -38,7 +38,9 @@
                 $tahun = date('Y');
             @endphp
             @for ($i = 0; $i < 5; $i++)
-                <option value="{{ $tahun - $i }}">{{ $tahun - $i }}</option>
+                <option value="{{ $tahun - $i }}" {{ $tahun - $i == date('Y') ? 'selected' : null }}>
+                    {{ $tahun - $i }}
+                </option>
             @endfor
         </select>
     </div>

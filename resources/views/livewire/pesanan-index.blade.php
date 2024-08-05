@@ -80,7 +80,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4">
+                                        <td colspan="7">
                                             <h3 class="text-center fw-bold">Pesanan Makanan Kosong</h3>
                                         </td>
                                     </tr>
@@ -133,7 +133,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="3">
+                                        <td colspan="7">
                                             <h3 class="text-center fw-bold">Pesanan Minuman Kosong</h3>
                                         </td>
                                     </tr>

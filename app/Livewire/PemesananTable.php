@@ -5,12 +5,13 @@ namespace App\Livewire;
 use App\Models\Menu;
 use Livewire\Component;
 
-class PemesananTable extends Component
-{
+class PemesananTable extends Component {
+    public $data;
+    public $nama;
+    public $meja_name, $meja_id, $meja_token;
     public $qtyMakan = [], $qtyMinum = [];
 
-    public function render()
-    {
+    public function render() {
         $makanan = Menu::where([
             'tipe' => 'makanan',
             'status' => 1
@@ -25,20 +26,56 @@ class PemesananTable extends Component
         ]);
     }
 
-    public function mount()
-    {
-        $makanan = Menu::where('tipe', 'makanan')->get();
-        $minuman = Menu::where('tipe', 'minuman')->get();
+    public function mount() {
+        $makanan = Menu::where([
+            'tipe' => 'makanan',
+            'status' => 1
+        ])->get();
+        $minuman = Menu::where([
+            'tipe' => 'minuman',
+            'status' => 1
+        ])->get();
         $i = 0;
         $j = 0;
 
-        foreach ($makanan as $value) {
-            $this->qtyMakan[$i] = 0;
+        foreach ($makanan as $makan) {
+            $this->qtyMakan[$i]['id'] = $makan->id;
+            $this->qtyMakan[$i]['qty'] = 0;
             $i++;
         }
-        foreach ($minuman as $value) {
-            $this->qtyMinum[$j] = 0;
+
+        foreach ($minuman as $minum) {
+            $this->qtyMinum[$j]['id'] = $minum->id;
+            $this->qtyMinum[$j]['qty'] = 0;
             $j++;
         }
+    }
+
+    public function subTotal($id, $qty) {
+        $menu = Menu::find($id);
+        $nama = $menu->nama;
+        $harga = $menu->harga;
+        $subtotal = $menu->harga * $qty;
+        return [
+            'nama' => $nama,
+            'harga' => $harga,
+            'subtotal' => $subtotal
+        ];
+    }
+
+    public function grandTotal() {
+        $makan = $this->qtyMakan;
+        $minum = $this->qtyMinum;
+        $total = 0;
+        foreach ($makan as  $mkn) {
+            $subtotal = $this->subTotal($mkn['id'], $mkn['qty'])['subtotal'];
+            $total += $subtotal;
+        }
+        foreach ($minum as  $mnm) {
+            $subtotal = $this->subTotal($mnm['id'], $mnm['qty'])['subtotal'];
+            $total += $subtotal;
+        }
+
+        return $total;
     }
 }

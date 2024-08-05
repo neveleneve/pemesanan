@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailTransaksi;
 use App\Models\Meja;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 
-class PemesananController extends Controller
-{
-    public function __construct()
-    {
+class PemesananController extends Controller {
+    public function __construct() {
         $this->middleware('guest');
     }
 
-    public function pesan($meja, $token)
-    {
+    public function pesan($meja, $token) {
         $data = Meja::find($meja);
         if ($data) {
             if ($token == $data->token) {
@@ -30,8 +28,7 @@ class PemesananController extends Controller
         }
     }
 
-    public function pemesanan(Request $request)
-    {
+    public function pemesanan(Request $request) {
         $data = Meja::find($request->meja_id);
         if ($data) {
             if ($request->meja_token == $data->token) {
@@ -46,15 +43,15 @@ class PemesananController extends Controller
         }
     }
 
-    public function hasilpesan($kode)
-    {
+    public function hasilpesan($kode) {
         $data = Transaksi::with(['meja', 'detail_transaksi', 'detail_transaksi.menu'])
             ->where('kode', $kode)
             ->first();
-
         if ($data) {
+            $detailtrx = DetailTransaksi::where('transaksi_id', $data->id)->sum('qty');
             return view('user.pemesanan.view', [
-                'data' => $data
+                'data' => $data,
+                'detailtrx' => $detailtrx
             ]);
         } else {
             return view('errors.404');
