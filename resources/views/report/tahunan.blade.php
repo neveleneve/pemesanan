@@ -79,13 +79,19 @@
                 </tr>
             </thead>
             <tbody>
+                @php
+                    $total = 0;
+                @endphp
                 @forelse ($data as $item)
                     <tr>
                         <td>{{ $loop->index + 1 }}</td>
                         <td>{{ $item->kode }}</td>
                         <td>{{ $item->nama }}</td>
-                        <td>{{ $item->total }}</td>
+                        <td>Rp {{ number_format($item->total, 0, ',', '.') }}</td>
                     </tr>
+                    @php
+                        $total += $item->total;
+                    @endphp
                 @empty
                     <tr>
                         <td colspan="4">
@@ -94,6 +100,16 @@
                     </tr>
                 @endforelse
             </tbody>
+            @if (count($data) > 0)
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-end">
+
+                        </td>
+                        <td>Rp {{ number_format($total, 0, ',', '.') }}</td>
+                    </tr>
+                </tfoot>
+            @endif
         </table>
     </div>
 </body>
