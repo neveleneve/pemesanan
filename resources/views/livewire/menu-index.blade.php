@@ -133,7 +133,7 @@
 </div>
 
 @push('script')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4@5">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="{{ asset('assets/sweetalert/css/all.min.css') }}">
+    <script src="{{ asset('assets/sweetalert/js/sweetalert.js') }}"></script>
     <script src="{{ asset('assets/livewire/livewire.js') }}"></script>
 @endpush
