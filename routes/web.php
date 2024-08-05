@@ -46,6 +46,8 @@ Route::resource('transaksi', TransaksiController::class)
 
 Route::group(['prefix' => 'report'], function () {
     Route::get('/', [ReportController::class, 'index'])->name('report.index');
+    Route::post('/cetak', [ReportController::class, 'cetak'])->name('report.cetak');
+    Route::get('/harian', [ReportController::class, 'hari'])->name('report.hari');
     Route::get('/bulanan', [ReportController::class, 'bulan'])->name('report.bulan');
     Route::get('/tahunan', [ReportController::class, 'tahun'])->name('report.tahun');
 });

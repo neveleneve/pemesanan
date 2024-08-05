@@ -10,9 +10,9 @@
 
 <body>
     <div class="container text-center mt-5">
-        <h1 class="display-1">Pemesanan Gagal</h1>
-        <p class="lead">Inputan data gagal diproses.</p>
-        <p>Silakan lakukan scan QR Code kembali!</p>
+        <h1 class="display-1">Cetak Laporan Gagal</h1>
+        <p class="lead">Inputan laporan gagal diproses.</p>
+        <p>Silakan periksa kembali pilihan data laporan yang akan dicetak!</p>
     </div>
 </body>
 

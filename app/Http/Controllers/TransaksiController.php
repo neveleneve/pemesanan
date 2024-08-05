@@ -36,7 +36,6 @@ class TransaksiController extends Controller {
      * Store a newly created resource in storage.
      */
     public function store(Request $request) {
-        // dd($request->all());
         $validation = Validator::make($request->all(), [
             'nama' => ['required', 'string'],
             'meja_id' => ['required', 'numeric'],
@@ -45,7 +44,6 @@ class TransaksiController extends Controller {
         if ($validation->fails()) {
             return view('errors.pesan_failed');
         } else {
-            // dd(['succeed']);
             $i = 0;
             $qtyByid = [];
             foreach ($request->qtyMenu as $key => $value) {
