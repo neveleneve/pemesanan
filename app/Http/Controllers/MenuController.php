@@ -60,8 +60,10 @@ class MenuController extends Controller {
             ]);
             if ($menu) {
                 if ($request->hasFile('gambar')) {
-                    $imageName = str_replace(' ', '_', $request->nama) . '-' . time() . '.' . $request->gambar->extension();
-                    $request->gambar->storeAs('public/images/menu', $imageName);
+                    $gambar = $request->file('gambar');
+                    $imageName = str_replace(' ', '_', $request->nama) . '-' . time() . '.' . $gambar->extension();
+                    $gambar->move(public_path('images/menu'), $imageName);
+
                     Menu::find($menu->id)->update([
                         'images' => $imageName
                     ]);
