@@ -27,6 +27,7 @@
     </div>
     <div class="row" wire:loading.remove>
         <div class="col-12">
+            {{ env('APP_URL') }}
             <div class="table-responsive-lg">
                 <table class="table table-hover text-nowrap">
                     <thead class="table-dark">
