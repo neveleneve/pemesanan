@@ -27,7 +27,7 @@
     </div>
     <div class="row" wire:loading.remove>
         <div class="col-12">
-            {{ env('APP_URL') }}
+            {{ env('APP_URL') }} Halo
             <div class="table-responsive-lg">
                 <table class="table table-hover text-nowrap">
                     <thead class="table-dark">
