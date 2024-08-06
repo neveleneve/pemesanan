@@ -54,10 +54,10 @@
                                 </td>
                                 <td class="text-center">
                                     @if ($item->images != null)
-                                        <img src="{{ asset('images/menu/' . $item->images) }}"
+                                        <img src="{{ url('images/menu/' . $item->images) }}"
                                             class="img-fluid img-thumbnail" width="70">
                                     @else
-                                        <img src="{{ asset('images/menu/default.png' . $item->images) }}"
+                                        <img src="{{ url('images/menu/default.png' . $item->images) }}"
                                             class="img-fluid img-thumbnail" width="70">
                                     @endif
                                 </td>
