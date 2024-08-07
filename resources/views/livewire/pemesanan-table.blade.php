@@ -2,7 +2,7 @@
     @csrf
     <div class="mb-3 row">
         <label for="name" class="col-sm-2 col-form-label col-form-label-sm fw-bold">
-            Nama Customer<span class="text-danger">*</span>
+            Nama<span class="text-danger">*</span>
         </label>
         <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" id="name" wire:model.live='nama'
@@ -22,7 +22,7 @@
     </div>
     <div class="mb-3 row">
         <label for="total" class="col-sm-2 col-form-label col-form-label-sm fw-bold">
-            Total Pesanan<span class="text-danger">*</span>
+            Total<span class="text-danger">*</span>
         </label>
         <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" id="total" readonly required
@@ -167,7 +167,7 @@
                             <th></th>
                             <th>Nama</th>
                             <th>Harga</th>
-                            <th>Qty</th>
+                            <th>Jumlah</th>
                         </tr>
                     </thead>
                     <tbody>
