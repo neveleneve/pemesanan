@@ -6,7 +6,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header text-bg-dark">
-                        <h3 class="text-center">Menu dan Pemesanan</h3>
+                        <h3 class="text-center fw-bold">Menu dan Pemesanan</h3>
                     </div>
                     <div class="card-body">
 
