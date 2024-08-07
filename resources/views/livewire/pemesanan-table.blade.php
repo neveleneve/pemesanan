@@ -76,10 +76,10 @@
                                                 <tr>
                                                     <td class="text-center">
                                                         @if ($makan['images'] != null)
-                                                            <img src="{{ Storage::url('images/menu/' . $makan['images']) . '?' . rand() }}"
+                                                            <img src="{{ url('images/menu/' . $makan['images']) }}"
                                                                 class="img-fluid img-thumbnail" width="70">
                                                         @else
-                                                            <img src="{{ Storage::url('images/menu/default.png') . '?' . rand() }}"
+                                                            <img src="{{ url('images/menu/default.png' . $makan['images']) }}"
                                                                 class="img-fluid img-thumbnail" width="70">
                                                         @endif
                                                     </td>
@@ -105,10 +105,10 @@
                                                 <tr>
                                                     <td class="text-center">
                                                         @if ($minum['images'] != null)
-                                                            <img src="{{ Storage::url('images/menu/' . $minum['images']) . '?' . rand() }}"
+                                                            <img src="{{ url('images/menu/' . $minum['images']) }}"
                                                                 class="img-fluid img-thumbnail" width="70">
                                                         @else
-                                                            <img src="{{ Storage::url('images/menu/default.png') . '?' . rand() }}"
+                                                            <img src="{{ url('images/menu/default.png' . $minum['images']) }}"
                                                                 class="img-fluid img-thumbnail" width="70">
                                                         @endif
                                                     </td>
@@ -181,11 +181,11 @@
                         @forelse ($makanan as $makan)
                             <tr>
                                 <td class="text-center">
-                                    @if ($makan->images != null)
-                                        <img src="{{ Storage::url('images/menu/' . $makan->images) }}"
+                                    @if ($makan['images'] != null)
+                                        <img src="{{ url('images/menu/' . $makan['images']) }}"
                                             class="img-fluid img-thumbnail" width="70">
                                     @else
-                                        <img src="{{ Storage::url('images/menu/default.png') }}"
+                                        <img src="{{ url('images/menu/default.png' . $makan['images']) }}"
                                             class="img-fluid img-thumbnail" width="70">
                                     @endif
                                 </td>
@@ -213,11 +213,11 @@
                         @forelse ($minuman as $minum)
                             <tr>
                                 <td class="text-center">
-                                    @if ($minum->images != null)
-                                        <img src="{{ Storage::url('images/menu/' . $minum->images) }}"
+                                    @if ($minum['images'] != null)
+                                        <img src="{{ url('images/menu/' . $minum['images']) }}"
                                             class="img-fluid img-thumbnail" width="70">
                                     @else
-                                        <img src="{{ Storage::url('images/menu/default.png') }}"
+                                        <img src="{{ url('images/menu/default.png' . $minum['images']) }}"
                                             class="img-fluid img-thumbnail" width="70">
                                     @endif
                                 </td>
