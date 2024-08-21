@@ -87,11 +87,18 @@
                                             @foreach ($data->detail_transaksi as $item)
                                                 <tr>
                                                     <td class="text-center">
-                                                        @if ($item->menu->images != null)
-                                                            <img src="{{ Storage::url('images/menu/' . $item->menu->images) }}"
+                                                        {{-- @if ($item->images != null)
+                                                            <img src="{{ url('images/menu/' . $item->images) }}"
                                                                 class="img-fluid img-thumbnail" width="70">
                                                         @else
-                                                            <img src="{{ Storage::url('images/menu/default.png') }}"
+                                                            <img src="{{ url('images/menu/default.png' . $item->images) }}"
+                                                                class="img-fluid img-thumbnail" width="70">
+                                                        @endif --}}
+                                                        @if ($item->menu->images != null)
+                                                            <img src="{{ url('images/menu/' . $item->menu->images) }}"
+                                                                class="img-fluid img-thumbnail" width="70">
+                                                        @else
+                                                            <img src="{{ url('images/menu/default.png') }}"
                                                                 class="img-fluid img-thumbnail" width="70">
                                                         @endif
                                                     </td>
