@@ -53,7 +53,8 @@
                                     <th>Nama Cust.</th>
                                     <th>Nama Menu</th>
                                     <th>Meja</th>
-                                    <th>Qty.</th>
+                                    <th>Qty</th>
+                                    <th>Tanggal</th>
                                     @can('pesanan edit')
                                         <th>Aksi</th>
                                     @endcan
@@ -67,6 +68,7 @@
                                         <td>{{ $mkn->menu->nama }}</td>
                                         <td>{{ $mkn->transaksi->meja->nama }}</td>
                                         <td>{{ $mkn->qty }}</td>
+                                        <td>{{ date('d F Y, H:i:s',strtotime($mkn->transaksi->created_at)) }}</td>
                                         @can('pesanan edit')
                                             <td>
                                                 @if ($loop->index == 0)
@@ -106,6 +108,7 @@
                                     <th>Nama</th>
                                     <th>Meja</th>
                                     <th>Qty</th>
+                                    <th>Tanggal</th>
                                     @can('pesanan edit')
                                         <th>Aksi</th>
                                     @endcan
@@ -119,6 +122,7 @@
                                         <td>{{ $mnm->menu->nama }}</td>
                                         <td>{{ $mnm->transaksi->meja->nama }}</td>
                                         <td>{{ $mnm->qty }}</td>
+                                        <td>{{ $mnm->transaksi->created_at }}</td>
                                         @can('pesanan edit')
                                             <td>
 
