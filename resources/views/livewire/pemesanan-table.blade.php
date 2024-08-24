@@ -168,7 +168,7 @@
             <h3 class="text-center fw-bold">Makanan</h3>
         </div>
         @forelse ($makanan as $makan)
-            <div class="col-12 col-lg-3 mb-3">
+            <div class="col-12 col-lg-3 col-md-6 mb-3">
                 <div class="card h-100">
                     @if ($makan['images'] != null)
                         <img src="{{ url('images/menu/' . $makan['images']) }}" class="card-img-top">
@@ -177,16 +177,20 @@
                     @endif
                     <div class="card-body">
                         <h5 class="card-title fw-bold text-dark">{{ $makan->nama }}</h5>
+                        <p class="card-text fw-bold m-0">
+                            Harga : Rp {{ number_format($makan->harga, 0, ',', '.') }}
+                        </p>
                         <p class="card-text">
                             Total Pesan : {{ $qtyMakan[$loop->index]['qty'] }}
                         </p>
-                        <button class="btn btn-sm btn-outline-primary fw-bold" data-bs-toggle="modal"
-                            data-bs-target="#modalMakan{{ $loop->index }}">
-                            Pesan
-                        </button>
                     </div>
                     <div class="card-footer fw-bold">
-                        Harga : Rp {{ number_format($makan->harga, 0, ',', '.') }}
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-sm btn-outline-primary fw-bold" data-bs-toggle="modal"
+                                data-bs-target="#modalMakan{{ $loop->index }}">
+                                Pesan
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -237,7 +241,7 @@
             <h3 class="text-center fw-bold">Minuman</h3>
         </div>
         @forelse ($minuman as $minum)
-            <div class="col-12 col-lg-3 mb-3">
+            <div class="col-12 col-lg-3 col-md-6 mb-3">
                 <div class="card h-100">
                     @if ($minum['images'] != null)
                         <img src="{{ url('images/menu/' . $minum['images']) }}" class="card-img-top">
@@ -246,16 +250,20 @@
                     @endif
                     <div class="card-body">
                         <h5 class="card-title fw-bold text-dark">{{ $minum->nama }}</h5>
+                        <p class="card-text fw-bold m-0">
+                            Harga : Rp {{ number_format($minum->harga, 0, ',', '.') }}
+                        </p>
                         <p class="card-text">
                             Total Pesan : {{ $qtyMinum[$loop->index]['qty'] }}
                         </p>
-                        <button class="btn btn-sm btn-outline-primary fw-bold" data-bs-toggle="modal"
-                            data-bs-target="#modalMinum{{ $loop->index }}">
-                            Pesan
-                        </button>
                     </div>
                     <div class="card-footer fw-bold">
-                        Harga : Rp {{ number_format($minum->harga, 0, ',', '.') }}
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-sm btn-outline-primary fw-bold" data-bs-toggle="modal"
+                                data-bs-target="#modalMinum{{ $loop->index }}">
+                                Pesan
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
