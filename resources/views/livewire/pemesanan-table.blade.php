@@ -282,7 +282,7 @@
                                 value="{{ $minum->nama }}" readonly>
                             <label for="hargaMinum{{ $loop->index }}" class="fw-bold">Nama Menu</label>
                             <input type="text" id="hargaMinum{{ $loop->index }}" class="form-control mb-3"
-                                value="{{ $minum->nama }}" readonly>
+                                value="{{ $minum->harga }}" readonly>
                             <label for="qtyMinum{{ $loop->index }}" class="fw-bold">Jumlah Pesan</label>
                             <div class="input-group mb-3">
                                 <button class="btn btn-outline-secondary" type="button"
