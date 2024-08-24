@@ -169,7 +169,7 @@
         </div>
         @forelse ($makanan as $makan)
             <div class="col-12 col-lg-3 mb-3">
-                <div class="card">
+                <div class="card h-100">
                     @if ($makan['images'] != null)
                         <img src="{{ url('images/menu/' . $makan['images']) }}" class="card-img-top">
                     @else
@@ -178,12 +178,15 @@
                     <div class="card-body">
                         <h5 class="card-title fw-bold text-dark">{{ $makan->nama }}</h5>
                         <p class="card-text">
-                            Rp {{ number_format($makan->harga, 0, ',', '.') }} x {{ $qtyMakan[$loop->index]['qty'] }}
+                            Total Pesan : {{ $qtyMakan[$loop->index]['qty'] }}
                         </p>
                         <button class="btn btn-sm btn-outline-primary fw-bold" data-bs-toggle="modal"
                             data-bs-target="#modalMakan{{ $loop->index }}">
                             Pesan
                         </button>
+                    </div>
+                    <div class="card-footer fw-bold">
+                        Harga : Rp {{ number_format($makan->harga, 0, ',', '.') }}
                     </div>
                 </div>
             </div>
@@ -235,7 +238,7 @@
         </div>
         @forelse ($minuman as $minum)
             <div class="col-12 col-lg-3 mb-3">
-                <div class="card">
+                <div class="card h-100">
                     @if ($minum['images'] != null)
                         <img src="{{ url('images/menu/' . $minum['images']) }}" class="card-img-top">
                     @else
@@ -244,12 +247,15 @@
                     <div class="card-body">
                         <h5 class="card-title fw-bold text-dark">{{ $minum->nama }}</h5>
                         <p class="card-text">
-                            Rp {{ number_format($minum->harga, 0, ',', '.') }} x {{ $qtyMinum[$loop->index]['qty'] }}
+                            Total Pesan : {{ $qtyMinum[$loop->index]['qty'] }}
                         </p>
                         <button class="btn btn-sm btn-outline-primary fw-bold" data-bs-toggle="modal"
                             data-bs-target="#modalMinum{{ $loop->index }}">
                             Pesan
                         </button>
+                    </div>
+                    <div class="card-footer fw-bold">
+                        Harga : Rp {{ number_format($minum->harga, 0, ',', '.') }}
                     </div>
                 </div>
             </div>

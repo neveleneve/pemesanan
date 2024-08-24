@@ -7,13 +7,11 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 
-class MenuSeeder extends Seeder
-{
+class MenuSeeder extends Seeder {
     /**
      * Run the database seeds.
      */
-    public function run(): void
-    {
+    public function run(): void {
         $faker = \Faker\Factory::create();
         $faker->addProvider(new \FakerRestaurant\Provider\id_ID\Restaurant($faker));
 
@@ -29,6 +27,14 @@ class MenuSeeder extends Seeder
             35000,
             40000,
         ];
+
+        Menu::create([
+            'nama' => 'Teh Obeng',
+            'images' => 'Teh_Obeng-1722913962.png',
+            'harga' => '7000',
+            'tipe' => 'minuman',
+            'status' => '1',
+        ]);
 
         for ($i = 0; $i < 11; $i++) {
             $jenis =  rand(0, 1);
