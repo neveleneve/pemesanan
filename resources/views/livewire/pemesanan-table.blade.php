@@ -204,7 +204,7 @@
                                 value="{{ $makan->nama }}" readonly>
                             <label for="hargaMakan{{ $loop->index }}" class="fw-bold">Harga</label>
                             <input type="text" class="form-control mb-3" id="hargaMakan{{ $loop->index }}"
-                                value="{{ $makan->harga }}" readonly>
+                                value="Rp. {{ number_format($makan->harga, 0, ',', '.') }}" readonly>
                             <label class="fw-bold" for="qtyMakan{{ $loop->index }}">Jumlah Pesan</label>
                             <div class="input-group mb-3">
                                 <button class="btn btn-outline-secondary" type="button"
@@ -282,7 +282,7 @@
                                 value="{{ $minum->nama }}" readonly>
                             <label for="hargaMinum{{ $loop->index }}" class="fw-bold">Nama Menu</label>
                             <input type="text" id="hargaMinum{{ $loop->index }}" class="form-control mb-3"
-                                value="{{ $minum->harga }}" readonly>
+                                value="Rp. {{ number_format($minum->harga, 0, ',', '.') }}" readonly>
                             <label for="qtyMinum{{ $loop->index }}" class="fw-bold">Jumlah Pesan</label>
                             <div class="input-group mb-3">
                                 <button class="btn btn-outline-secondary" type="button"
