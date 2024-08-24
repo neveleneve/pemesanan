@@ -40,6 +40,7 @@ class PemesananTable extends Component {
 
         foreach ($makanan as $makan) {
             $this->qtyMakan[$i]['id'] = $makan->id;
+            // $this->qtyMakan[$i]['nama'] = $makan->nama;
             $this->qtyMakan[$i]['images'] = $makan->images;
             $this->qtyMakan[$i]['qty'] = 0;
             $i++;
@@ -47,6 +48,7 @@ class PemesananTable extends Component {
 
         foreach ($minuman as $minum) {
             $this->qtyMinum[$j]['id'] = $minum->id;
+            // $this->qtyMinum[$j]['nama'] = $minum->nama;
             $this->qtyMinum[$j]['images'] = $minum->images;
             $this->qtyMinum[$j]['qty'] = 0;
             $j++;
@@ -79,5 +81,33 @@ class PemesananTable extends Component {
         }
 
         return $total;
+    }
+
+    public function valueChanger($index, $type, $value) {
+        if ($type == 'makan') {
+            if ($value == '+') {
+                $this->qtyMakan[$index]['qty'] += 1;
+            } elseif ($value == '-') {
+                if (!$this->qtyMakan[$index]['qty'] == 0) {
+                    $this->qtyMakan[$index]['qty'] -= 1;
+                }
+            }
+        } elseif ($type == 'minum') {
+            if ($value == '+') {
+                $this->qtyMinum[$index]['qty'] += 1;
+            } elseif ($value == '-') {
+                if (!$this->qtyMinum[$index]['qty'] == 0) {
+                    $this->qtyMinum[$index]['qty'] -= 1;
+                }
+            }
+        }
+    }
+
+    public function cancelPesan($type, $index) {
+        if ($type == 'makan') {
+            $this->qtyMakan[$index]['qty'] = 0;
+        } elseif ($type == 'minum') {
+            $this->qtyMinum[$index]['qty'] = 0;
+        }
     }
 }

@@ -33,9 +33,11 @@
         <div class="col-12 gap-2 d-grid">
             <button class="btn btn-sm btn-outline-dark fw-bold" data-bs-toggle="modal" data-bs-target="#modalConfirm"
                 {{ $this->nama != '' ? null : 'disabled' }}>
-                {{-- {{ $this->grandTotal() > 0 && $this->nama != '' ? null : 'disabled' }}> --}}
                 Pesan
             </button>
+            {{-- <button class="btn btn-sm btn-outline-dark fw-bold" data-bs-toggle="modal" data-bs-target="#modalMenu">
+                Pesan
+            </button> --}}
             <div class="modal modal-xl fade" id="modalConfirm" tabindex="-1" data-bs-backdrop="static">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -142,12 +144,13 @@
                                 </table>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-sm btn-outline-secondary fw-bold"
+                                <button type="button" class="btn btn-sm fw-bold btn-outline-danger"
                                     data-bs-dismiss="modal">
-                                    Batal
+                                    Lanjut Piilih Menu
                                 </button>
-                                <button class="btn btn-sm btn-outline-primary fw-bold" type="submit">
-                                    Lanjut
+                                <button class="btn btn-sm btn-outline-primary fw-bold fw-bold" data-bs-dismiss="modal"
+                                    type="submit">
+                                    Konfirmasi Pemesanan
                                 </button>
                             </div>
                         </form>
@@ -157,6 +160,144 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-12 mb-3">
+            <h3 class="text-center text-dark fw-bold">Menu Tersedia</h3>
+            <hr>
+        </div>
+        <div class="col-12 mb-3">
+            <h3 class="text-center fw-bold">Makanan</h3>
+        </div>
+        @forelse ($makanan as $makan)
+            <div class="col-12 col-lg-3 mb-3">
+                <div class="card">
+                    @if ($makan['images'] != null)
+                        <img src="{{ url('images/menu/' . $makan['images']) }}" class="card-img-top">
+                    @else
+                        <img src="{{ url('images/menu/default.png' . $makan['images']) }}" class="card-img-top">
+                    @endif
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-dark">{{ $makan->nama }}</h5>
+                        <p class="card-text">
+                            Rp {{ number_format($makan->harga, 0, ',', '.') }} x {{ $qtyMakan[$loop->index]['qty'] }}
+                        </p>
+                        <button class="btn btn-sm btn-outline-primary fw-bold" data-bs-toggle="modal"
+                            data-bs-target="#modalMakan{{ $loop->index }}">
+                            Pesan
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="modalMakan{{ $loop->index }}" tabindex="-1" wire:ignore.self
+                data-bs-backdrop="static" data-bs-keyboard="false">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Jumlah Pesanan Menu</h1>
+                        </div>
+                        <div class="modal-body">
+                            <label class="fw-bold">Nama Menu</label>
+                            <input type="text" class="form-control mb-3" value="{{ $makan->nama }}" readonly>
+                            <label class="fw-bold">Jumlah Pesan</label>
+                            <div class="input-group mb-3">
+                                <button class="btn btn-outline-secondary" type="button"
+                                    wire:click='valueChanger({{ $loop->index }}, "makan", "-")'>
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <input type="text" class="form-control" placeholder="Jumlah Pesanan"
+                                    wire:model.live='qtyMakan.{{ $loop->index }}.qty'>
+                                <button class="btn btn-outline-primary" type="button"
+                                    wire:click='valueChanger({{ $loop->index }}, "makan", "+")'>
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-sm fw-bold btn-outline-danger"
+                                data-bs-dismiss="modal" wire:click='cancelPesan("makan", {{ $loop->index }})'>
+                                Batal
+                            </button>
+                            <button type="button" class="btn btn-sm fw-bold btn-outline-primary"
+                                data-bs-dismiss="modal">
+                                Konfirmasi Jumlah Pesan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @empty
+            <div class="col-12">
+                <h3 class="fw-bold text-dark text-center">Makanan Kosong</h3>
+            </div>
+        @endforelse
+        <hr>
+        <div class="col-12 mb-3">
+            <h3 class="text-center fw-bold">Minuman</h3>
+        </div>
+        @forelse ($minuman as $minum)
+            <div class="col-12 col-lg-3 mb-3">
+                <div class="card">
+                    @if ($minum['images'] != null)
+                        <img src="{{ url('images/menu/' . $minum['images']) }}" class="card-img-top">
+                    @else
+                        <img src="{{ url('images/menu/default.png' . $minum['images']) }}" class="card-img-top">
+                    @endif
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-dark">{{ $minum->nama }}</h5>
+                        <p class="card-text">
+                            Rp {{ number_format($minum->harga, 0, ',', '.') }} x {{ $qtyMinum[$loop->index]['qty'] }}
+                        </p>
+                        <button class="btn btn-sm btn-outline-primary fw-bold" data-bs-toggle="modal"
+                            data-bs-target="#modalMinum{{ $loop->index }}">
+                            Pesan
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="modalMinum{{ $loop->index }}" tabindex="-1" wire:ignore.self
+                data-bs-backdrop="static" data-bs-keyboard="false">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Jumlah Pesanan Menu</h1>
+                        </div>
+                        <div class="modal-body">
+                            <label for="nama_menu" class="fw-bold">Nama Menu</label>
+                            <input type="text" id="nama_menu" class="form-control mb-3"
+                                value="{{ $minum->nama }}" readonly>
+                            <label for="jml" class="fw-bold">Jumlah Pesan</label>
+                            <div class="input-group mb-3">
+                                <button class="btn btn-outline-secondary" type="button"
+                                    wire:click='valueChanger({{ $loop->index }}, "minum", "-")'>
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <input type="text" class="form-control" placeholder="Jumlah Pesanan"
+                                    wire:model.live='qtyMinum.{{ $loop->index }}.qty'>
+                                <button class="btn btn-outline-primary" type="button"
+                                    wire:click='valueChanger({{ $loop->index }}, "minum", "+")'>
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-sm fw-bold btn-outline-danger"
+                                data-bs-dismiss="modal" wire:click='cancelPesan("minum", {{ $loop->index }})'>
+                                Batal
+                            </button>
+                            <button type="button" class="btn btn-sm fw-bold btn-outline-primary"
+                                data-bs-dismiss="modal">
+                                Konfirmasi Jumlah Pesan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @empty
+            <div class="col-12">
+                <h3 class="fw-bold text-dark text-center">Minuman Kosong</h3>
+            </div>
+        @endforelse
+    </div>
+    {{-- <div class="row">
         <div class="col-12 mb-3">
             <h3 class="text-center fw-bold">Menu Tersedia</h3>
             <hr>
@@ -183,16 +324,18 @@
                                 <td class="text-center">
                                     @if ($makan['images'] != null)
                                         <img src="{{ url('images/menu/' . $makan['images']) }}"
+                                            data-bs-toggle="modal" data-bs-target="#modalMenu"
                                             class="img-fluid img-thumbnail" width="70">
                                     @else
                                         <img src="{{ url('images/menu/default.png' . $makan['images']) }}"
+                                            data-bs-toggle="modal" data-bs-target="#modalMenu"
                                             class="img-fluid img-thumbnail" width="70">
                                     @endif
                                 </td>
                                 <td>{{ $makan->nama }}</td>
                                 <td>Rp {{ number_format($makan->harga, 0, ',', '.') }}</td>
                                 <td>
-                                    <input type="number" class="form-control" min="0"
+                                    <input type="number" class="form-control-plaintext" min="0"
                                         wire:model.live='qtyMakan.{{ $loop->index }}.qty'>
                                 </td>
                             </tr>
@@ -239,5 +382,26 @@
                 </table>
             </div>
         </div>
-    </div>
+    </div> --}}
+    {{-- <div class="modal fade" id="modalMenu" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Jumlah Pesanan Menu</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="nama_menu" class="fw-bold">Nama Menu</label>
+                    <input type="text" id="nama_menu" class="form-control mb-3" id="nama_menu">
+                    <label for="jml" class="fw-bold">Jumlah Pesan</label>
+                    <input type="number" class="form-control" id="jml" placeholder="Masukkan Jumlah Pesanan">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+
 </div>
