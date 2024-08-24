@@ -1,11 +1,11 @@
 <div>
     @csrf
     <div class="mb-3 row">
-        <label for="name" class="col-sm-2 col-form-label col-form-label-sm fw-bold">
+        <label for="nama" class="col-sm-2 col-form-label col-form-label-sm fw-bold">
             Nama<span class="text-danger">*</span>
         </label>
         <div class="col-sm-10">
-            <input type="text" class="form-control form-control-sm" id="name" wire:model.live='nama'
+            <input type="text" class="form-control form-control-sm" id="nama" wire:model.live='nama'
                 placeholder="Nama Customer" required>
         </div>
     </div>
@@ -35,9 +35,6 @@
                 {{ $this->nama != '' ? null : 'disabled' }}>
                 Pesan
             </button>
-            {{-- <button class="btn btn-sm btn-outline-dark fw-bold" data-bs-toggle="modal" data-bs-target="#modalMenu">
-                Pesan
-            </button> --}}
             <div class="modal modal-xl fade" id="modalConfirm" tabindex="-1" data-bs-backdrop="static">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -202,16 +199,21 @@
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Jumlah Pesanan Menu</h1>
                         </div>
                         <div class="modal-body">
-                            <label class="fw-bold">Nama Menu</label>
-                            <input type="text" class="form-control mb-3" value="{{ $makan->nama }}" readonly>
-                            <label class="fw-bold">Jumlah Pesan</label>
+                            <label for="namaMakan{{ $loop->index }}" class="fw-bold">Nama Menu</label>
+                            <input type="text" class="form-control mb-3" id="namaMakan{{ $loop->index }}"
+                                value="{{ $makan->nama }}" readonly>
+                            <label for="hargaMakan{{ $loop->index }}" class="fw-bold">Harga</label>
+                            <input type="text" class="form-control mb-3" id="hargaMakan{{ $loop->index }}"
+                                value="{{ $makan->harga }}" readonly>
+                            <label class="fw-bold" for="qtyMakan{{ $loop->index }}">Jumlah Pesan</label>
                             <div class="input-group mb-3">
                                 <button class="btn btn-outline-secondary" type="button"
                                     wire:click='valueChanger({{ $loop->index }}, "makan", "-")'>
                                     <i class="fa fa-minus"></i>
                                 </button>
                                 <input type="text" class="form-control" placeholder="Jumlah Pesanan"
-                                    wire:model.live='qtyMakan.{{ $loop->index }}.qty'>
+                                    wire:model.live='qtyMakan.{{ $loop->index }}.qty'
+                                    id="qtyMakan{{ $loop->index }}">
                                 <button class="btn btn-outline-primary" type="button"
                                     wire:click='valueChanger({{ $loop->index }}, "makan", "+")'>
                                     <i class="fa fa-plus"></i>
@@ -275,17 +277,21 @@
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Jumlah Pesanan Menu</h1>
                         </div>
                         <div class="modal-body">
-                            <label for="nama_menu" class="fw-bold">Nama Menu</label>
-                            <input type="text" id="nama_menu" class="form-control mb-3"
+                            <label for="namaMinum{{ $loop->index }}" class="fw-bold">Nama Menu</label>
+                            <input type="text" id="namaMinum{{ $loop->index }}" class="form-control mb-3"
                                 value="{{ $minum->nama }}" readonly>
-                            <label for="jml" class="fw-bold">Jumlah Pesan</label>
+                            <label for="hargaMinum{{ $loop->index }}" class="fw-bold">Nama Menu</label>
+                            <input type="text" id="hargaMinum{{ $loop->index }}" class="form-control mb-3"
+                                value="{{ $minum->nama }}" readonly>
+                            <label for="qtyMinum{{ $loop->index }}" class="fw-bold">Jumlah Pesan</label>
                             <div class="input-group mb-3">
                                 <button class="btn btn-outline-secondary" type="button"
                                     wire:click='valueChanger({{ $loop->index }}, "minum", "-")'>
                                     <i class="fa fa-minus"></i>
                                 </button>
                                 <input type="text" class="form-control" placeholder="Jumlah Pesanan"
-                                    wire:model.live='qtyMinum.{{ $loop->index }}.qty'>
+                                    wire:model.live='qtyMinum.{{ $loop->index }}.qty'
+                                    id="qtyMinum{{ $loop->index }}">
                                 <button class="btn btn-outline-primary" type="button"
                                     wire:click='valueChanger({{ $loop->index }}, "minum", "+")'>
                                     <i class="fa fa-plus"></i>
