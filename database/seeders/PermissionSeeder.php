@@ -42,6 +42,7 @@ class PermissionSeeder extends Seeder {
             'transaksi show',
             'transaksi edit',
             'transaksi delete',
+            'transaksi cetak',
 
             'pesanan index',
             'pesanan create',
@@ -99,6 +100,7 @@ class PermissionSeeder extends Seeder {
             'meja index',
             'transaksi index',
             'transaksi show',
+            'transaksi cetak',
             'pesanan index',
         ];
         for ($i = 0; $i < count($permissions); $i++) {

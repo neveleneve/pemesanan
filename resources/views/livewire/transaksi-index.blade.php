@@ -120,26 +120,23 @@
                     <div class="row mb-3 text-center">
                         <div class="col-12 mb-1">
                             <label for="kode" class="fw-bold">Kode Transaksi</label>
-                            <input type="text" id="kode" readonly
-                                value="{{ isset($selectedTrx->kode) ? $selectedTrx->kode : '' }}"
+                            <input type="text" id="kode" readonly value="{{ $selectedTrx['kode'] }}"
                                 class="form-control form-control-sm form-control-plaintext text-center">
                         </div>
                         <div class="col-12 mb-1">
                             <label for="nama" class="fw-bold">Nama Customer</label>
-                            <input type="text" id="nama" readonly
-                                value="{{ isset($selectedTrx->nama) ? $selectedTrx->nama : '' }}"
+                            <input type="text" id="nama" readonly value="{{ $selectedTrx['nama'] }}"
                                 class="form-control form-control-sm form-control-plaintext text-center">
                         </div>
                         <div class="col-12 mb-1">
                             <label for="meja" class="fw-bold">Meja</label>
-                            <input type="text" id="meja" readonly
-                                value="{{ isset($selectedTrx->meja->nama) ? $selectedTrx->meja->nama : '' }}"
+                            <input type="text" id="meja" readonly value="{{ $selectedTrx['nama'] }}"
                                 class="form-control form-control-sm form-control-plaintext text-center">
                         </div>
                         <div class="col-12 mb-1">
                             <label for="total" class="fw-bold">Total</label>
                             <input type="text" id="total" readonly
-                                value="Rp {{ isset($selectedTrx->total) ? number_format($selectedTrx->total, 0, ',', '.') : '' }}"
+                                value="Rp {{ number_format($selectedTrx['total'], 0, ',', '.') }}"
                                 class="form-control form-control-sm form-control-plaintext text-center">
                         </div>
                     </div>
@@ -156,11 +153,11 @@
                         <tbody>
                             @forelse ($details as $detail)
                                 <tr>
-                                    <td>{{ $detail->menu->nama }}</td>
-                                    <td>{{ $detail->qty }}</td>
-                                    <td>{{ $detail->status ? 'Selesai' : 'Proses' }}</td>
-                                    <td class="text-end">Rp {{ number_format($detail->harga, 0, ',', '.') }}</td>
-                                    <td class="text-end">Rp {{ number_format($detail->subtotal, 0, ',', '.') }}</td>
+                                    <td>{{ $detail['nama'] }}</td>
+                                    <td>{{ $detail['qty'] }}</td>
+                                    <td>{{ $detail['status'] ? 'Selesai' : 'Proses' }}</td>
+                                    <td class="text-end">Rp {{ number_format($detail['harga'], 0, ',', '.') }}</td>
+                                    <td class="text-end">Rp {{ number_format($detail['subtotal'], 0, ',', '.') }}</td>
                                 </tr>
                             @empty
                                 <tr>
@@ -184,10 +181,26 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-outline-danger fw-bold"
-                        data-bs-dismiss="modal">Tutup</button>
+                    @if ($selectedTrx['status'])
+                        @can('transaksi cetak')
+                            <button type="button" class="btn btn-sm btn-outline-info fw-bold" data-bs-dismiss="modal"
+                                wire:click='cetak({{ $selectedTrx['id'] }})'>
+                                Bayar & Cetak Struk
+                            </button>
+                        @endcan
+                    @endif
+                    <button type="button" class="btn btn-sm btn-outline-danger fw-bold" data-bs-dismiss="modal">
+                        Tutup
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+    @push('script')
+        <script>
+            Livewire.on('open-report', event => {
+                window.open(event.route, '_blank');
+            });
+        </script>
+    @endpush
 </div>

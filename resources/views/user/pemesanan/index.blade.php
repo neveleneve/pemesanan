@@ -9,7 +9,6 @@
                         <h3 class="text-center fw-bold">Menu dan Pemesanan</h3>
                     </div>
                     <div class="card-body">
-
                         @livewire('pemesanan-table', ['data' => $data])
                     </div>
                 </div>

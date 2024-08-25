@@ -8,8 +8,7 @@ use Illuminate\Pagination\Paginator;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class TransaksiIndex extends Component
-{
+class TransaksiIndex extends Component {
     use WithPagination;
 
     public $search = '';
@@ -17,11 +16,18 @@ class TransaksiIndex extends Component
     public $dataPerPage = 10;
     public $currentPage;
 
-    public $selectedTrx = [];
+    public $selectedTrx = [
+        'id' => 0,
+        'kode' => '',
+        'nama' => '',
+        'meja' => '',
+        'total' => 0,
+        'status' => '',
+        'status bayar' => '',
+    ];
     public $details = [];
 
-    public function render()
-    {
+    public function render() {
         if ($this->search == '') {
             $data = Transaksi::with('meja')
                 ->orderBy('created_at', 'desc')
@@ -38,17 +44,43 @@ class TransaksiIndex extends Component
         ]);
     }
 
-    public function setPage($url)
-    {
+    public function setPage($url) {
         $this->currentPage = explode('page=', $url)[1];
         Paginator::currentPageResolver(function () {
             return $this->currentPage;
         });
     }
 
-    public function transaksiDetail($id)
-    {
-        $this->details = DetailTransaksi::where('transaksi_id', $id)->get();
-        $this->selectedTrx = Transaksi::find($id);
+    public function transaksiDetail(Transaksi $transaksi) {
+        $this->selectedTrx = [
+            'id' => $transaksi->id,
+            'kode' => $transaksi->kode,
+            'nama' => $transaksi->nama,
+            'meja' => $transaksi->meja->nama,
+            'total' => $transaksi->total,
+            'status' => $transaksi->status,
+            'status bayar' => $transaksi->status_bayar,
+        ];
+        $menu = $transaksi->detail_transaksi()->get();
+        $data = [];
+        foreach ($menu as $key => $value) {
+            $data[$key] = [
+                'nama' => $value->menu->nama,
+                'qty' => $value->qty,
+                'status' => $value->status,
+                'harga' => $value->harga,
+                'subtotal' => $value->subtotal,
+            ];
+        }
+        $this->details = $data;
+    }
+
+    public function cetak(Transaksi $transaksi) {
+        $route = route('transaksi.report', [
+            'id' => $transaksi->id,
+            'kode' => $transaksi->kode,
+        ]);
+
+        $this->dispatch('open-report', route: $route);
     }
 }

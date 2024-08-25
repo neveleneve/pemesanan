@@ -41,6 +41,7 @@ Route::resource('menu', MenuController::class);
 Route::resource('pesanan', PesananController::class)
     ->except('create', 'edit', 'destroy');
 
+Route::get('transaksi/report', [TransaksiController::class, 'report'])->name('transaksi.report');
 Route::resource('transaksi', TransaksiController::class)
     ->except('create', 'edit', 'destroy');
 

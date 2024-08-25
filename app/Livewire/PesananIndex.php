@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\DetailTransaksi;
+use App\Models\Transaksi;
 use Illuminate\Pagination\Paginator;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -40,6 +41,18 @@ class PesananIndex extends Component {
             'status' => 1
         ]);
         if ($update) {
+            $jmlPesan = DetailTransaksi::where([
+                'transaksi_id' => $trx->transaksi_id
+            ])->count();
+            $jmlPesanDone = DetailTransaksi::where([
+                'transaksi_id' => $trx->transaksi_id,
+                'status' => 1,
+            ])->count();
+            if ($jmlPesan == $jmlPesanDone) {
+                Transaksi::where('id', $trx->transaksi_id)->update([
+                    'status' => 1
+                ]);
+            }
             $data = [
                 'icon' => 'success',
                 'title' => 'Berhasil',
@@ -52,7 +65,6 @@ class PesananIndex extends Component {
                 'text' => 'Gagal menyelesaikan pesan! Silakan ulangi!'
             ];
         }
-        // Alert::success('Halo', 'halo');
-        $this->dispatch('test', data: $data);
+        $this->dispatch('alert', data: $data);
     }
 }

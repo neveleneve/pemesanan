@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DetailTransaksi;
 use App\Models\Menu;
 use App\Models\Transaksi;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Nette\Utils\Random;
@@ -118,5 +119,36 @@ class TransaksiController extends Controller {
      */
     public function destroy(Transaksi $transaksi) {
         //
+    }
+
+    public function report(Request $request) {
+        //
+        if (isset($request->id)) {
+            $transaksi = Transaksi::find($request->id);
+            if ($transaksi && $transaksi->kode == $request->kode) {
+                $data['transaksi'] = [
+                    'meja' => $transaksi->meja->nama,
+                    'kode' => $transaksi->kode,
+                    'nama' => $transaksi->nama,
+                    'total' => $transaksi->total,
+                ];
+                $detail = DetailTransaksi::where('transaksi_id', $request->id)->get();
+                foreach ($detail as $key => $value) {
+                    $data['menu'][$key] = [
+                        'nama' => $value->menu->nama,
+                        'qty' => $value->qty,
+                        'status' => $value->status,
+                        'harga' => $value->harga,
+                        'subtotal' => $value->subtotal,
+                    ];
+                }
+                $pdf = PDF::loadView('report.struk', $data)->setPaper('A5', 'landscape');
+                return $pdf->stream('struk_' . $transaksi->kode . '-' . strtotime(date('Y-m-d H:i:s')) . '.pdf');
+            } else {
+                return view('errors.403');
+            }
+        } else {
+            return view('errors.403');
+        }
     }
 }

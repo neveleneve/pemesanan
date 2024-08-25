@@ -68,7 +68,7 @@
                                         <td>{{ $mkn->menu->nama }}</td>
                                         <td>{{ $mkn->transaksi->meja->nama }}</td>
                                         <td>{{ $mkn->qty }}</td>
-                                        <td>{{ date('d F Y, H:i:s',strtotime($mkn->transaksi->created_at)) }}</td>
+                                        <td>{{ date('d F Y, H:i:s', strtotime($mkn->transaksi->created_at)) }}</td>
                                         @can('pesanan edit')
                                             <td>
                                                 @if ($loop->index == 0)
@@ -164,7 +164,7 @@
 @push('script')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        Livewire.on('test', (data) => {
+        Livewire.on('alert', (data) => {
             Swal.fire({
                 icon: data.data.icon,
                 title: data.data.title,
