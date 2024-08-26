@@ -24,7 +24,7 @@ class TransaksiSeeder extends Seeder {
 
         $meja = Meja::count();
 
-        for ($i = 0; $i < 1; $i++) {
+        for ($i = 0; $i < 2; $i++) {
             $pickmeja = rand(1, $meja);
             $date = date('Y-m-d H:i:s', strtotime('-' . $i . 'minutes'));
             $transaksi = Transaksi::create([
