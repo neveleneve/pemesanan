@@ -82,7 +82,10 @@ class TransaksiController extends Controller {
                             ]);
                         }
                     }
-                    return redirect(route('pesan.lihat', ['kode' => $kode]));
+                    return redirect(route('pesan.lihat', [
+                        'kode' => $kode,
+                        'alert' => 1,
+                    ]));
                 }
             } else {
                 return redirect(route('pesan.check', [
@@ -122,7 +125,6 @@ class TransaksiController extends Controller {
     }
 
     public function report(Request $request) {
-        //
         if (isset($request->id)) {
             $transaksi = Transaksi::find($request->id);
             if ($transaksi && $transaksi->kode == $request->kode) {

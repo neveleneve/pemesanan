@@ -47,10 +47,16 @@
                                 <label for="nama" class="fw-bold">Nama Customer</label>
                                 <input type="text" name="nama" id="nama" value="{{ $nama }}"
                                     class="form-control form-control-sm mb-3">
-
                                 <label for="meja" class="fw-bold">Meja</label>
                                 <input type="text" class="form-control form-control-sm mb-3" id="meja_name" readonly
                                     required placeholder="Nama Meja" value="{{ $data->nama }}">
+                                <label for="est" class="fw-bold">Estimasi Pembuatan</label>
+                                <input type="text" class="form-control form-control-sm mb-3" id="est" readonly
+                                    required placeholder="Estimasi Waktu" value="{{ round($total * 2.5) }} Menit">
+                                <label for="est_antar" class="fw-bold">Estimasi Waktu Antar</label>
+                                <input type="text" class="form-control form-control-sm mb-3" id="est_antar" readonly
+                                    required placeholder="Estimasi Waktu"
+                                    value="{{ date('d F Y H:i', strtotime(round($total * 2.5) * 60 . ' second')) }}">
                                 <input type="hidden" name="meja_id" value="{{ $data->id }}">
                                 <input type="hidden" name="meja_token" value="{{ $data->token }}">
 
@@ -70,6 +76,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $est = 0;
+                                        @endphp
                                         @foreach ($qtyMakan as $makan)
                                             @if ($makan['qty'] != 0)
                                                 <tr>
@@ -317,111 +326,5 @@
             </div>
         @endforelse
     </div>
-    {{-- <div class="row">
-        <div class="col-12 mb-3">
-            <h3 class="text-center fw-bold">Menu Tersedia</h3>
-            <hr>
-            <div class="table-responsive">
-                <table class="table table-hover text-nowrap">
-                    <thead class="table-dark">
-                        <tr>
-                            <th></th>
-                            <th>Nama</th>
-                            <th>Harga</th>
-                            <th>Jumlah</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td colspan="4" class="text-bg-dark">
-                                <h3 class="fw-bold text-center">
-                                    Makanan
-                                </h3>
-                            </td>
-                        </tr>
-                        @forelse ($makanan as $makan)
-                            <tr>
-                                <td class="text-center">
-                                    @if ($makan['images'] != null)
-                                        <img src="{{ url('images/menu/' . $makan['images']) }}"
-                                            data-bs-toggle="modal" data-bs-target="#modalMenu"
-                                            class="img-fluid img-thumbnail" width="70">
-                                    @else
-                                        <img src="{{ url('images/menu/default.png' . $makan['images']) }}"
-                                            data-bs-toggle="modal" data-bs-target="#modalMenu"
-                                            class="img-fluid img-thumbnail" width="70">
-                                    @endif
-                                </td>
-                                <td>{{ $makan->nama }}</td>
-                                <td>Rp {{ number_format($makan->harga, 0, ',', '.') }}</td>
-                                <td>
-                                    <input type="number" class="form-control-plaintext" min="0"
-                                        wire:model.live='qtyMakan.{{ $loop->index }}.qty'>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="4">
-                                    <h3 class="text-center fw-bold">Data Makanan Kosong</h3>
-                                </td>
-                            </tr>
-                        @endforelse
-                        <tr>
-                            <td colspan="4" class="text-bg-dark">
-                                <h3 class="fw-bold text-center">
-                                    Minuman
-                                </h3>
-                            </td>
-                        </tr>
-                        @forelse ($minuman as $minum)
-                            <tr>
-                                <td class="text-center">
-                                    @if ($minum['images'] != null)
-                                        <img src="{{ url('images/menu/' . $minum['images']) }}"
-                                            class="img-fluid img-thumbnail" width="70">
-                                    @else
-                                        <img src="{{ url('images/menu/default.png' . $minum['images']) }}"
-                                            class="img-fluid img-thumbnail" width="70">
-                                    @endif
-                                </td>
-                                <td>{{ $minum->nama }}</td>
-                                <td>Rp {{ number_format($minum->harga, 0, ',', '.') }}</td>
-                                <td>
-                                    <input type="number" class="form-control" min="0"
-                                        wire:model.live='qtyMinum.{{ $loop->index }}.qty'>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="4">
-                                    <h3 class="text-center fw-bold">Data Minuman Kosong</h3>
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div> --}}
-    {{-- <div class="modal fade" id="modalMenu" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Jumlah Pesanan Menu</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <label for="nama_menu" class="fw-bold">Nama Menu</label>
-                    <input type="text" id="nama_menu" class="form-control mb-3" id="nama_menu">
-                    <label for="jml" class="fw-bold">Jumlah Pesan</label>
-                    <input type="number" class="form-control" id="jml" placeholder="Masukkan Jumlah Pesanan">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
+    {{ $total }}
 </div>

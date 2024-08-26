@@ -10,6 +10,7 @@ class PemesananTable extends Component {
     public $nama;
     public $meja_name, $meja_id, $meja_token;
     public $qtyMakan = [], $qtyMinum = [];
+    public $total = 0;
 
     public function render() {
         $makanan = Menu::where([
@@ -40,7 +41,6 @@ class PemesananTable extends Component {
 
         foreach ($makanan as $makan) {
             $this->qtyMakan[$i]['id'] = $makan->id;
-            // $this->qtyMakan[$i]['nama'] = $makan->nama;
             $this->qtyMakan[$i]['images'] = $makan->images;
             $this->qtyMakan[$i]['qty'] = 0;
             $i++;
@@ -48,7 +48,6 @@ class PemesananTable extends Component {
 
         foreach ($minuman as $minum) {
             $this->qtyMinum[$j]['id'] = $minum->id;
-            // $this->qtyMinum[$j]['nama'] = $minum->nama;
             $this->qtyMinum[$j]['images'] = $minum->images;
             $this->qtyMinum[$j]['qty'] = 0;
             $j++;
@@ -79,7 +78,6 @@ class PemesananTable extends Component {
             $subtotal = $this->subTotal($mnm['id'], $mnm['qty'])['subtotal'];
             $total += $subtotal;
         }
-
         return $total;
     }
 
@@ -87,17 +85,21 @@ class PemesananTable extends Component {
         if ($type == 'makan') {
             if ($value == '+') {
                 $this->qtyMakan[$index]['qty'] += 1;
+                $this->total += 1;
             } elseif ($value == '-') {
                 if (!$this->qtyMakan[$index]['qty'] == 0) {
                     $this->qtyMakan[$index]['qty'] -= 1;
+                    $this->total -= 1;
                 }
             }
         } elseif ($type == 'minum') {
             if ($value == '+') {
                 $this->qtyMinum[$index]['qty'] += 1;
+                $this->total += 1;
             } elseif ($value == '-') {
                 if (!$this->qtyMinum[$index]['qty'] == 0) {
                     $this->qtyMinum[$index]['qty'] -= 1;
+                    $this->total -= 1;
                 }
             }
         }

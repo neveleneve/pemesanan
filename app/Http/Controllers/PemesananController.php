@@ -6,6 +6,7 @@ use App\Models\DetailTransaksi;
 use App\Models\Meja;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PemesananController extends Controller {
     public function __construct() {
@@ -43,12 +44,15 @@ class PemesananController extends Controller {
         }
     }
 
-    public function hasilpesan($kode) {
+    public function hasilpesan(Request $request, $kode) {
         $data = Transaksi::with(['meja', 'detail_transaksi', 'detail_transaksi.menu'])
             ->where('kode', $kode)
             ->first();
         if ($data) {
             $detailtrx = DetailTransaksi::where('transaksi_id', $data->id)->sum('qty');
+            if ($request->alert) {
+                Alert::success('Berhasil Membuat Pesanan', 'Pesanan kamu berhasil dipesan. Silahkan menunggu waiters kami untuk mengantar pesanan kamu!');
+            }
             return view('user.pemesanan.view', [
                 'data' => $data,
                 'detailtrx' => $detailtrx

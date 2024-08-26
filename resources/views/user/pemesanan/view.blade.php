@@ -65,6 +65,15 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
+                            <label for="est" class="col-12 col-form-label col-form-label-sm fw-bold text-center">
+                                Estimasi Waktu Penyelesaian
+                            </label>
+                            <div class="col-12">
+                                <input type="text" class="form-control form-control-sm text-center" id="est"
+                                    readonly value="{{ round($detailtrx * 2.5) }} Menit">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
                             <label for="selesai" class="col-12 col-form-label col-form-label-sm fw-bold text-center">
                                 Waktu Penyelesaian
                             </label>
@@ -85,10 +94,6 @@
                         @endif
                         <div class="row">
                             <div class="col-12">
-                                <b class="text-dark">
-                                    Estimasi Waktu :
-                                </b>
-                                {{ round($detailtrx * 2.5) }} Menit
                                 <div class="table-responsive">
                                     <table class="table table-hover text-center">
                                         <thead class="table-dark fw-bold">
