@@ -50,7 +50,7 @@ class PemesananController extends Controller {
             ->first();
         if ($data) {
             $detailtrx = DetailTransaksi::where('transaksi_id', $data->id)->sum('qty');
-            if ($request->alert) {
+            if (session('alert')) {
                 Alert::success('Berhasil Membuat Pesanan', 'Pesanan kamu berhasil dipesan. Silahkan menunggu waiters kami untuk mengantar pesanan kamu!');
             }
             return view('user.pemesanan.view', [

@@ -68,9 +68,6 @@ class TransaksiController extends Controller {
                     'jenis_pembayaran' => $request->jenis_pembayaran,
                 ]);
                 if ($transaksi) {
-                    // if ($request->jenis_pembayaran == 'online') {
-                    //     # to be code
-                    // }
                     foreach ($qtyByid as $value) {
                         if ($value['qty'] != 0) {
                             DetailTransaksi::create([
@@ -83,9 +80,8 @@ class TransaksiController extends Controller {
                         }
                     }
                     return redirect(route('pesan.lihat', [
-                        'kode' => $kode,
-                        'alert' => 1,
-                    ]));
+                        'kode' => $kode
+                    ]))->with('alert', 1);
                 }
             } else {
                 return redirect(route('pesan.check', [
