@@ -130,7 +130,7 @@
                         </div>
                         <div class="col-12 mb-1">
                             <label for="meja" class="fw-bold">Meja</label>
-                            <input type="text" id="meja" readonly value="{{ $selectedTrx['nama'] }}"
+                            <input type="text" id="meja" readonly value="{{ $selectedTrx['meja'] }}"
                                 class="form-control form-control-sm form-control-plaintext text-center">
                         </div>
                         <div class="col-12 mb-1">

@@ -130,6 +130,11 @@
                 <td>:</td>
                 <td>Rp. {{ number_format($transaksi['total'], 0, ',', '.') }}</td>
             </tr>
+            <tr>
+                <td class="fw-bold">Tanggal</td>
+                <td>:</td>
+                <td>{{ date('d F Y H:i:s') }}</td>
+            </tr>
         </tbody>
     </table>
     <br>
