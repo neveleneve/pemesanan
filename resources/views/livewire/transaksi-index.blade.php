@@ -37,6 +37,7 @@
                             <th>Nama</th>
                             <th>Meja</th>
                             <th>Total</th>
+                            <th>Status</th>
                             <th>Tanggal</th>
                             @canany(['transaksi show', 'transaksi edit', 'transaksi delete'])
                                 <th></th>
@@ -50,6 +51,17 @@
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->meja->nama }}</td>
                                 <td>Rp {{ number_format($item->total, 0, ',', '.') }}</td>
+                                <td>
+                                    @if ($item->status)
+                                        @if ($item->status_bayar)
+                                            Pesanan Sudah Dibayar
+                                        @else
+                                            Pesanan Belum Dibayar
+                                        @endif
+                                    @else
+                                        Pesanan Belum Selesai
+                                    @endif
+                                </td>
                                 <td>{{ date('d F Y. H:i:s', strtotime($item->created_at)) }}</td>
                                 @canany(['transaksi show', 'transaksi edit', 'transaksi delete'])
                                     <td>

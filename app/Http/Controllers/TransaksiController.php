@@ -140,6 +140,9 @@ class TransaksiController extends Controller {
                         'subtotal' => $value->subtotal,
                     ];
                 }
+                $transaksi->update([
+                    'status_bayar' => 1
+                ]);
                 $pdf = PDF::loadView('report.struk', $data)->setPaper('A5', 'landscape');
                 return $pdf->stream('struk_' . $transaksi->kode . '-' . strtotime(date('Y-m-d H:i:s')) . '.pdf');
             } else {

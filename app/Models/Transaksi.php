@@ -14,6 +14,7 @@ class Transaksi extends Model {
         'kode',
         'total',
         'status',
+        'status_bayar',
     ];
 
     public function meja() {
