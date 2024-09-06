@@ -66,7 +66,7 @@
 </head>
 
 <body>
-    <div class="container text-center">
+    <div class="container-fluid text-center">
         <h1 class="display-1">Laporan Transaksi Bulanan</h1>
         <p class="lead">Bulan {{ $bulan_tahun }}</p>
         <table class="table table-bordered">
@@ -74,6 +74,10 @@
                 <tr>
                     <th>No</th>
                     <th>Kode Transaksi</th>
+                    <th>Tanggal</th>
+                    <th>Waktu</th>
+                    <th>Estimasi</th>
+                    <th>Selesai</th>
                     <th>Nama Pengguna</th>
                     <th>Total Transaksi</th>
                 </tr>
@@ -86,6 +90,11 @@
                     <tr>
                         <td>{{ $loop->index + 1 }}</td>
                         <td>{{ $item->kode }}</td>
+                        <td>{{ date('d F Y', strtotime($item->created_at)) }}</td>
+                        <td>{{ date('d F Y H:i', strtotime($item->created_at)) }}</td>
+                        <td>{{ round($item->detail_transaksi_sum_qty * 2.5) }} Menit</td>
+                        <td>{{ date('d F Y H:i', strtotime($item->created_at . '+' . round($item->detail_transaksi_sum_qty * 2.5) * 60 . 'second')) }}
+                        </td>
                         <td>{{ $item->nama }}</td>
                         <td>Rp {{ number_format($item->total, 0, ',', '.') }}</td>
                     </tr>
@@ -94,7 +103,7 @@
                     @endphp
                 @empty
                     <tr>
-                        <td colspan="4">
+                        <td colspan="7">
                             <h3 class="text-center">Data Transaksi Kosong</h3>
                         </td>
                     </tr>
@@ -103,7 +112,7 @@
             @if (count($data) > 0)
                 <tfoot>
                     <tr>
-                        <td colspan="3" class="text-end">
+                        <td colspan="7" class="text-end">
                             Total
                         </td>
                         <td>Rp {{ number_format($total, 0, ',', '.') }}</td>

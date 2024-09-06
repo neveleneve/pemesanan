@@ -49,12 +49,13 @@ class ReportController extends Controller {
         if ($validate->fails()) {
             return view('errors.cetak_failed');
         } else {
-            $data = Transaksi::whereDate('created_at', $request->tanggal)
+            $data = Transaksi::withSum('detail_transaksi', 'qty')
+                ->whereDate('created_at', $request->tanggal)
                 ->get();
             $pdf = PDF::loadView('report.harian', [
                 'data' => $data,
                 'tanggal' => date('d F Y', strtotime($request->tanggal)),
-            ]);
+            ])->setPaper('a4', 'landscape');
             return $pdf->stream('Laporan Transaksi Harian - ' . date('d F Y', strtotime($request->tanggal)) . '.pdf');
         }
     }
@@ -68,13 +69,15 @@ class ReportController extends Controller {
         if ($validate->fails()) {
             return view('errors.cetak_failed');
         } else {
-            $data = Transaksi::whereMonth('created_at', $request->bulan)
+            $data = Transaksi::withSum('detail_transaksi', 'qty')
+                ->whereMonth('created_at', $request->bulan)
                 ->whereYear('created_at', $request->tahun)
                 ->get();
             $pdf = PDF::loadView('report.bulanan', [
                 'data' => $data,
                 'bulan_tahun' => $this->namaBulan($request->bulan) . ' ' . $request->tahun,
-            ]);
+            ])
+                ->setPaper('a4', 'landscape');
             return $pdf->stream('Laporan Transaksi Bulanan - ' . $this->namaBulan($request->bulan) . ' ' . $request->tahun . '.pdf');
         }
     }
@@ -86,12 +89,14 @@ class ReportController extends Controller {
         if ($validate->fails()) {
             return view('errors.cetak_failed');
         } else {
-            $data = Transaksi::whereYear('created_at', $request->tahun)
+            $data = Transaksi::withSum('detail_transaksi', 'qty')
+                ->whereYear('created_at', $request->tahun)
                 ->get();
             $pdf = PDF::loadView('report.tahunan', [
                 'data' => $data,
                 'tahun' => $this->namaBulan($request->bulan) . ' ' . $request->tahun,
-            ]);
+            ])
+                ->setPaper('a4', 'landscape');
             return $pdf->stream('Laporan Transaksi Tahunan - Tahun ' . $request->tahun . '.pdf');
         }
     }

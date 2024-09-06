@@ -7,8 +7,6 @@
     <title>Laporan Transaksi Harian - {{ $tanggal }}</title>
     <link href="{{ asset('assets/bootstrap/css/bootstrap-minty.min.css') }}" rel="stylesheet">
     <style>
-        /* Custom CSS for Bootstrap 5 Table */
-
         .table {
             width: 100%;
             margin-bottom: 1rem;
@@ -66,7 +64,7 @@
 </head>
 
 <body>
-    <div class="container text-center">
+    <div class="container-fluid text-center">
         <h1 class="display-1">Laporan Transaksi Harian</h1>
         <p class="lead">Tanggal {{ $tanggal }}</p>
         <table class="table table-bordered">
@@ -74,6 +72,9 @@
                 <tr>
                     <th>No</th>
                     <th>Kode Transaksi</th>
+                    <th>Waktu</th>
+                    <th>Estimasi</th>
+                    <th>Selesai</th>
                     <th>Nama Pengguna</th>
                     <th>Total Transaksi</th>
                 </tr>
@@ -86,6 +87,10 @@
                     <tr>
                         <td>{{ $loop->index + 1 }}</td>
                         <td>{{ $item->kode }}</td>
+                        <td>{{ date('d F Y H:i', strtotime($item->created_at)) }}</td>
+                        <td>{{ round($item->detail_transaksi_sum_qty * 2.5) }} Menit</td>
+                        <td>{{ date('d F Y H:i', strtotime($item->created_at . '+' . round($item->detail_transaksi_sum_qty * 2.5) * 60 . 'second')) }}
+                        </td>
                         <td>{{ $item->nama }}</td>
                         <td>Rp {{ number_format($item->total, 0, ',', '.') }}</td>
                     </tr>
@@ -94,7 +99,7 @@
                     @endphp
                 @empty
                     <tr>
-                        <td colspan="4">
+                        <td colspan="6">
                             <h4 class="display-1 text-center">Data Transaksi Kosong</h4>
                         </td>
                     </tr>
@@ -103,7 +108,7 @@
             @if (count($data) > 0)
                 <tfoot>
                     <tr>
-                        <td colspan="3" class="text-end">
+                        <td colspan="6" class="text-end">
 
                         </td>
                         <td>
