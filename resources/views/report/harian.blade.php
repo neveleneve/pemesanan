@@ -99,7 +99,7 @@
                     @endphp
                 @empty
                     <tr>
-                        <td colspan="6">
+                        <td colspan="7">
                             <h4 class="display-1 text-center">Data Transaksi Kosong</h4>
                         </td>
                     </tr>
@@ -108,7 +108,7 @@
             @if (count($data) > 0)
                 <tfoot>
                     <tr>
-                        <td colspan="6" class="text-end">
+                        <td colspan="7" class="text-end">
 
                         </td>
                         <td>

@@ -103,7 +103,7 @@
                     @endphp
                 @empty
                     <tr>
-                        <td colspan="7">
+                        <td colspan="8">
                             <h4 class="display-1 text-center">Data Transaksi Kosong</h4>
                         </td>
                     </tr>
@@ -112,7 +112,7 @@
             @if (count($data) > 0)
                 <tfoot>
                     <tr>
-                        <td colspan="7" class="text-end">
+                        <td colspan="8" class="text-end">
 
                         </td>
                         <td>Rp {{ number_format($total, 0, ',', '.') }}</td>
