@@ -67,7 +67,7 @@
 
 <body>
     <div class="container-fluid text-center">
-        <h1 class="display-1">Laporan Transaksi Bulanan</h1>
+        <h1 class="display-1">Laporan Penjualan Bulanan</h1>
         <p class="lead">Bulan {{ $bulan_tahun }}</p>
         <table class="table table-bordered">
             <thead>

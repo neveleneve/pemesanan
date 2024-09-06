@@ -65,7 +65,7 @@
 
 <body>
     <div class="container-fluid text-center">
-        <h1 class="display-1">Laporan Transaksi Harian</h1>
+        <h1 class="display-1">Laporan Penjualan Harian</h1>
         <p class="lead">Tanggal {{ $tanggal }}</p>
         <table class="table table-bordered">
             <thead>
