@@ -61,10 +61,25 @@
                                     Harga<span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-10">
-                                    <input type="number" step="1000" min="0"
+                                    <input type="number" step="1000" min="0" id="harga" name="harga"
                                         class="form-control form-control-sm @error('harga') is-invalid @enderror"
-                                        id="harga" name="harga" value="{{ old('harga') }}" placeholder="Harga">
+                                        value="{{ old('harga') }}" placeholder="Harga">
                                     @error('harga')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="estimasi_waktu" class="col-sm-2 col-form-label col-form-label-sm fw-bold">
+                                    Estimasi Waktu (Menit)<span class="text-danger">*</span>
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="number" min="0" id="estimasi_waktu" name="estimasi_waktu"
+                                        class="form-control form-control-sm @error('estimasi_waktu') is-invalid @enderror"
+                                        value="{{ old('estimasi_waktu') }}" placeholder="Estimasi Waktu Pembuatan">
+                                    @error('estimasi_waktu')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>

@@ -49,13 +49,18 @@ class PemesananController extends Controller {
             ->where('kode', $kode)
             ->first();
         if ($data) {
-            $detailtrx = DetailTransaksi::where('transaksi_id', $data->id)->sum('qty');
+            $totalEstimatedTime = 0;
+            foreach ($data->detail_transaksi as $detail) {
+                for ($i = 0; $i < $detail->qty; $i++) {
+                    $totalEstimatedTime += $detail->menu->estimasi_waktu;
+                }
+            }
             if (session('alert')) {
                 Alert::success('Berhasil Membuat Pesanan', 'Pesanan kamu berhasil dipesan. Silahkan menunggu waiters kami untuk mengantar pesanan kamu!');
             }
             return view('user.pemesanan.view', [
                 'data' => $data,
-                'detailtrx' => $detailtrx
+                'time_estimated' => $totalEstimatedTime
             ]);
         } else {
             return view('errors.404');

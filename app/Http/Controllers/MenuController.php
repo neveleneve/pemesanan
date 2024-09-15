@@ -27,13 +27,13 @@ class MenuController extends Controller {
     }
 
     public function store(Request $request) {
-        // dd($request->all());
         $validasi = Validator::make(
             $request->all(),
             [
                 'nama' => ['required'],
                 'tipe' => ['required'],
                 'harga' => ['required', 'numeric'],
+                'estimasi_waktu' => ['required', 'numeric'],
                 'gambar' => ['image', 'mimes:jpeg,png,jpg', 'max:512'],
             ],
             [
@@ -41,6 +41,8 @@ class MenuController extends Controller {
                 'tipe.required' => 'Tipe menu harus dipilih!',
                 'harga.required' => 'Harga menu harus diisi!',
                 'harga.numeric' => 'Harga menu harus berupa angka!',
+                'estimasi_waktu.required' => 'Estimasi waktu pembuatan menu harus diisi!',
+                'estimasi_waktu.numeric' => 'Estimasi waktu pembuatan menu harus berupa angka!',
                 'gambar.image' => 'File yang diupload harus berupa gambar!',
                 'gambar.mimes' => 'File yang diupload harus mempunyai format .jpg, ,jpeg, atau .png!',
                 'gambar.max' => 'File yang diupload harus mempunyai ukuran tidak lebih dari 500kb!',
@@ -56,6 +58,7 @@ class MenuController extends Controller {
             $menu = Menu::create([
                 'nama' => $request->nama,
                 'harga' => $request->harga,
+                'estimasi_waktu' => $request->estimasi_waktu,
                 'tipe' => $request->tipe,
             ]);
             if ($menu) {
@@ -97,6 +100,7 @@ class MenuController extends Controller {
                 'nama' => ['required'],
                 'tipe' => ['required'],
                 'harga' => ['required', 'numeric'],
+                'estimasi_waktu' => ['required', 'numeric'],
                 'status' => ['required'],
             ],
             [
@@ -104,6 +108,9 @@ class MenuController extends Controller {
                 'tipe.required' => 'Tipe menu harus dipilih!',
                 'harga.required' => 'Harga menu harus diisi!',
                 'harga.numeric' => 'Harga menu harus berupa angka!',
+                'estimasi_waktu.required' => 'Estimasi waktu pembuatan menu harus diisi!',
+                'estimasi_waktu.numeric' => 'Estimasi waktu pembuatan menu harus berupa angka!',
+                'status.required' => 'Status menu harus diisi!',
             ]
         );
 

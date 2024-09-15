@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('nama');
             $table->integer('harga');
             $table->enum('tipe', ['makanan', 'minuman']);
+            $table->integer('estimasi_waktu');
             $table->boolean('status')->nullable()->default(1);
             $table->softDeletes();
             $table->timestamps();

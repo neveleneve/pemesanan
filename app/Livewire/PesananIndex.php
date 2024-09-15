@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\DetailTransaksi;
 use App\Models\Transaksi;
 use Illuminate\Pagination\Paginator;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -35,6 +36,16 @@ class PesananIndex extends Component {
         ]);
     }
 
+    public function confirmDone($id) {
+        $detail = DetailTransaksi::with('transaksi', 'transaksi.meja', 'menu')->find($id);
+        $data = [
+            'id' => $id,
+            'title' => 'Selesaikan pesanan ' . $detail->menu->nama . ' untuk ' . $detail->transaksi->meja->nama . '?',
+        ];
+        $this->dispatch('confirm', data: $data);
+    }
+
+    #[On('confirmed_done')]
     public function doneOrder($id) {
         $trx = DetailTransaksi::find($id);
         $update = $trx->update([

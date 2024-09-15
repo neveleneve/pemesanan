@@ -75,6 +75,21 @@
                                 </div>
                             </div>
                             <div class="mb-3 row">
+                                <label for="estimasi_waktu" class="col-sm-2 col-form-label col-form-label-sm fw-bold">
+                                    Estimasi Waktu (Menit)<span class="text-danger">*</span>
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="number" min="0" id="estimasi_waktu" name="estimasi_waktu"
+                                        class="form-control form-control-sm @error('estimasi_waktu') is-invalid @enderror"
+                                        value="{{ $data->estimasi_waktu }}" placeholder="Estimasi Waktu Pembuatan">
+                                    @error('estimasi_waktu')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
                                 <label for="status" class="col-sm-2 col-form-label col-form-label-sm fw-bold">
                                     Status Ketersediaan
                                 </label>

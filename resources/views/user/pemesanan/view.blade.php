@@ -70,7 +70,7 @@
                             </label>
                             <div class="col-12">
                                 <input type="text" class="form-control form-control-sm text-center" id="est"
-                                    readonly value="{{ round($detailtrx * 2.5) }} Menit">
+                                    readonly value="{{ $time_estimated }} Menit">
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -78,9 +78,9 @@
                                 Waktu Penyelesaian
                             </label>
                             <div class="col-12">
-                                <input type="text" class="form-control form-control-sm text-center" id="selesai"
-                                    readonly
-                                    value="{{ date('d F Y, H:i', strtotime($data->created_at . '+' . round($detailtrx * 2.5) * 60 . ' second')) }}">
+                                <input
+                                    value="{{ date('d F Y, H:i', strtotime($data->created_at . '+' . $time_estimated * 60 . ' second')) }}"
+                                    type="text" class="form-control form-control-sm text-center" id="selesai" readonly>
                             </div>
                         </div>
                         @if ($data->jenis_pembayaran == 'online' && $data->status_bayar == 0)

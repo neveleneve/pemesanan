@@ -11,14 +11,14 @@
                 wire:model.live='search'>
         </div>
     </div>
-    <div class="row" wire:loading wire:loading.class='d-block' wire:target.except='doneOrder'>
+    <div class="row" wire:loading wire:loading.class='d-block' wire:target.except='doneOrder,confirmDone'>
         <div class="col-12">
             <h1 class="text-center">
                 <i class="fas fa-spinner-third fa-spin"></i>
             </h1>
         </div>
     </div>
-    <div class="row mb-3" wire:loading.remove wire:target.except='doneOrder'>
+    <div class="row mb-3" wire:loading.remove wire:target.except='doneOrder,confirmDone'>
         <div class="col-12">
             <ul class="nav nav-underline nav-justified" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -38,7 +38,7 @@
             </ul>
         </div>
     </div>
-    <div class="tab-content" id="myTabContent" wire:loading.remove wire:target.except='doneOrder'>
+    <div class="tab-content" id="myTabContent" wire:loading.remove wire:target.except='doneOrder,confirmDone'>
         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" tabindex="0">
             <div class="row">
                 <div class="col-12">
@@ -73,7 +73,7 @@
                                             <td>
                                                 @if ($loop->index == 0)
                                                     <button class="btn btn-sm btn-outline-primary fw-bold"
-                                                        wire:click='doneOrder({{ $mkn->id }})'>
+                                                        wire:click='confirmDone({{ $mkn->id }})'>
                                                         Done
                                                     </button>
                                                 @endif
@@ -125,10 +125,9 @@
                                         <td>{{ $mnm->transaksi->created_at }}</td>
                                         @can('pesanan edit')
                                             <td>
-
                                                 @if ($loop->index == 0)
                                                     <button class="btn btn-sm btn-outline-primary fw-bold"
-                                                        wire:click='doneOrder({{ $mnm->id }})'>
+                                                        wire:click='confirmDone({{ $mnm->id }})'>
                                                         Done
                                                     </button>
                                                 @endif
@@ -170,6 +169,25 @@
                 title: data.data.title,
                 text: data.data.text,
             });
+        });
+        Livewire.on('confirm', (data) => {
+            Swal.fire({
+                title: data.data.title,
+                showCancelButton: true,
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Batal',
+                customClass: {
+                    actions: 'my-actions',
+                    cancelButton: 'btn btn-outline-danger fw-bold',
+                    confirmButton: 'btn btn-outline-success fw-bold',
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.dispatch('confirmed_done', {
+                        id: data.data.id
+                    });
+                }
+            })
         });
     </script>
 @endpush

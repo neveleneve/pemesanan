@@ -27,7 +27,6 @@
     </div>
     <div class="row" wire:loading.remove>
         <div class="col-12">
-            {{ env('APP_URL') }} Halo
             <div class="table-responsive-lg">
                 <table class="table table-hover text-nowrap">
                     <thead class="table-dark">
@@ -37,6 +36,7 @@
                             <th>Nama</th>
                             <th>Jenis</th>
                             <th>Harga</th>
+                            <th>Estimasi Waktu (Menit)</th>
                             @canany(['menu show', 'menu edit', 'menu delete'])
                                 <th></th>
                             @endcanany
@@ -65,6 +65,7 @@
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ ucwords($item->tipe) }}</td>
                                 <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
+                                <td>{{ $item->estimasi_waktu }} Menit</td>
                                 @canany(['menu show', 'menu edit', 'menu delete'])
                                     <td>
                                         <div class="dropdown">

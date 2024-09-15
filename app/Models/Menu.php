@@ -14,6 +14,7 @@ class Menu extends Model {
         'nama',
         'harga',
         'tipe',
+        'estimasi_waktu',
         'status',
     ];
 

@@ -45,6 +45,15 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
+                            <label for="estimasi_waktu" class="col-sm-2 col-form-label col-form-label-sm fw-bold">
+                                Estimasi Waktu Pembuatan
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="text" id="estimasi_waktu" value="{{ $data->estimasi_waktu }} Menit"
+                                    class="form-control form-control-sm form-control-plaintext" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
                             <label for="status" class="col-sm-2 col-form-label col-form-label-sm fw-bold">
                                 Status Ketersediaan
                             </label>

@@ -52,11 +52,11 @@
                                     required placeholder="Nama Meja" value="{{ $data->nama }}">
                                 <label for="est" class="fw-bold">Estimasi Pembuatan</label>
                                 <input type="text" class="form-control form-control-sm mb-3" id="est" readonly
-                                    required placeholder="Estimasi Waktu" value="{{ round($total * 2.5) }} Menit">
+                                    required placeholder="Estimasi Waktu" value="{{ $estimated_time }} Menit">
                                 <label for="est_antar" class="fw-bold">Estimasi Waktu Antar</label>
                                 <input type="text" class="form-control form-control-sm mb-3" id="est_antar" readonly
                                     required placeholder="Estimasi Waktu"
-                                    value="{{ date('d F Y H:i', strtotime(round($total * 2.5) * 60 . ' second')) }}">
+                                    value="{{ date('d F Y H:i', strtotime($estimated_time * 60 . ' second')) }}">
                                 <input type="hidden" name="meja_id" value="{{ $data->id }}">
                                 <input type="hidden" name="meja_token" value="{{ $data->token }}">
 
@@ -326,5 +326,4 @@
             </div>
         @endforelse
     </div>
-    {{ $total }}
 </div>
